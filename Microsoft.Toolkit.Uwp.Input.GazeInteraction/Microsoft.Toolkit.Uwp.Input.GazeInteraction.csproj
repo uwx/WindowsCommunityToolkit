@@ -122,6 +122,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DwellInvokedRoutedEventArgs.cs" />
+    <Compile Include="DwellProgressEventArgs.cs" />
+    <Compile Include="DwellProgressState.cs" />
+    <Compile Include="GazeHidUsages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
