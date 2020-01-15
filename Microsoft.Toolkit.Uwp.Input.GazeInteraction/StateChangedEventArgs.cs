@@ -1,42 +1,35 @@
-//Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
-//See LICENSE in the project root for license information.
+// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+// See LICENSE in the project root for license information.
 
-#pragma once
+using System;
+using Windows.UI.Xaml;
 
-#include "PointerState.h"
-
-using namespace Windows::UI::Xaml;
-
-BEGIN_NAMESPACE_GAZE_INPUT
-
-/// <summary>
-/// This parameter is passed to the StateChanged event.
-/// </summary>
-public ref struct StateChangedEventArgs sealed
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
     /// <summary>
-    /// The state of user's gaze with respect to a control
+    /// This parameter is passed to the StateChanged event.
     /// </summary>
-    property GazeInteraction::PointerState PointerState {GazeInteraction::PointerState get() { return _pointerState; }}
-
-    /// <summary>
-    /// Elapsed time since the last state
-    /// </summary>
-    property TimeSpan ElapsedTime {TimeSpan get() { return _elapsedTime; }}
-
-internal:
-
-    StateChangedEventArgs(UIElement^ target, GazeInteraction::PointerState state, TimeSpan elapsedTime)
+    public sealed class StateChangedEventArgs
     {
-        _hitTarget = target;
-        _pointerState = state;
-        _elapsedTime = elapsedTime;
+        /// <summary>
+        /// The state of user's gaze with respect to a control
+        /// </summary>
+        public PointerState PointerState => _pointerState;
+
+        /// <summary>
+        /// Gets elapsed time since the last state
+        /// </summary>
+        public TimeSpan ElapsedTime => _elapsedTime;
+
+        internal StateChangedEventArgs(UIElement target, PointerState state, TimeSpan elapsedTime)
+        {
+            _hitTarget = target;
+            _pointerState = state;
+            _elapsedTime = elapsedTime;
+        }
+
+        private UIElement _hitTarget;
+        private PointerState _pointerState;
+        private TimeSpan _elapsedTime;
     }
-
-private:
-    UIElement ^ _hitTarget;
-    GazeInteraction::PointerState _pointerState;
-    TimeSpan _elapsedTime;
-};
-
-END_NAMESPACE_GAZE_INPUT
+}

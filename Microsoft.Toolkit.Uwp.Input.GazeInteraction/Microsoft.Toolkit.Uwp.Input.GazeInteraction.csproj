@@ -124,8 +124,14 @@
     <Compile Include="DwellInvokedRoutedEventArgs.cs" />
     <Compile Include="DwellProgressEventArgs.cs" />
     <Compile Include="DwellProgressState.cs" />
+    <Compile Include="GazeElement.cs" />
+    <Compile Include="GazeFilterArgs.cs" />
     <Compile Include="GazeHidUsages.cs" />
+    <Compile Include="IGazeFilter.cs" />
+    <Compile Include="NullFilter.cs" />
+    <Compile Include="PointerState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateChangedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
