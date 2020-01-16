@@ -126,6 +126,7 @@
     <Compile Include="DwellProgressState.cs" />
     <Compile Include="GazeCursor.cs" />
     <Compile Include="GazeElement.cs" />
+    <Compile Include="GazeEventArgs.cs" />
     <Compile Include="GazeFilterArgs.cs" />
     <Compile Include="GazeHidUsages.cs" />
     <Compile Include="IGazeFilter.cs" />
