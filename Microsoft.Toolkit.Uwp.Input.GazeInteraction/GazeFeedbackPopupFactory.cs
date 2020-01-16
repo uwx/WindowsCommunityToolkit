@@ -1,43 +1,47 @@
-//Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
-//See LICENSE in the project root for license information.
+// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+// See LICENSE in the project root for license information.
 
-#include "pch.h"
-#include "GazeFeedbackPopupFactory.h"
-#include "GazeInput.h"
+using System.Collections.Generic;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Shapes;
 
-BEGIN_NAMESPACE_GAZE_INPUT
-
-Popup^ GazeFeedbackPopupFactory::Get()
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-    Popup^ popup;
-    ::Windows::UI::Xaml::Shapes::Rectangle^ rectangle;
-
-    if (s_cache->Size != 0)
+    internal class GazeFeedbackPopupFactory
     {
-        popup = s_cache->GetAt(0);
-        s_cache->RemoveAt(0);
+        private List<Popup> _cache = new List<Popup>();
 
-        rectangle = safe_cast<::Windows::UI::Xaml::Shapes::Rectangle^>(popup->Child);
+        public Popup Get()
+        {
+            Popup popup;
+            Rectangle rectangle;
+
+            if (_cache.Count != 0)
+            {
+                popup = _cache[0];
+                _cache.RemoveAt(0);
+
+                rectangle = (Rectangle)popup.Child;
+            }
+            else
+            {
+                popup = new Popup();
+
+                rectangle = new Rectangle();
+                rectangle.IsHitTestVisible = false;
+
+                popup.Child = rectangle;
+            }
+
+            rectangle.StrokeThickness = GazeInput.DwellStrokeThickness;
+
+            return popup;
+        }
+
+        public void Return(Popup popup)
+        {
+            popup.IsOpen = false;
+            _cache.Add(popup);
+        }
     }
-    else
-    {
-        popup = ref new Popup();
-
-        rectangle = ref new ::Windows::UI::Xaml::Shapes::Rectangle();
-        rectangle->IsHitTestVisible = false;
-
-        popup->Child = rectangle;
-    }
-
-    rectangle->StrokeThickness = GazeInput::DwellStrokeThickness;
-
-    return popup;
 }
-
-void GazeFeedbackPopupFactory::Return(Popup^ popup)
-{
-    popup->IsOpen = false;
-    s_cache->Append(popup);
-}
-
-END_NAMESPACE_GAZE_INPUT

@@ -127,6 +127,7 @@
     <Compile Include="GazeCursor.cs" />
     <Compile Include="GazeElement.cs" />
     <Compile Include="GazeEventArgs.cs" />
+    <Compile Include="GazeFeedbackPopupFactory.cs" />
     <Compile Include="GazeFilterArgs.cs" />
     <Compile Include="GazeHidUsages.cs" />
     <Compile Include="IGazeFilter.cs" />
