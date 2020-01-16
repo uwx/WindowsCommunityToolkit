@@ -23,12 +23,12 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         {
             get
             {
-                return GazePointer.Instance._enterBrush;
+                return GazePointer.Instance.EnterBrush;
             }
 
             set
             {
-                GazePointer.Instance._enterBrush = value;
+                GazePointer.Instance.EnterBrush = value;
             }
         }
 
@@ -39,12 +39,12 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         {
             get
             {
-                return GazePointer.Instance._progressBrush;
+                return GazePointer.Instance.ProgressBrush;
             }
 
             set
             {
-                GazePointer.Instance._progressBrush = value;
+                GazePointer.Instance.ProgressBrush = value;
             }
         }
 
@@ -55,12 +55,12 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         {
             get
             {
-                return GazePointer.Instance._completeBrush;
+                return GazePointer.Instance.CompleteBrush;
             }
 
             set
             {
-                GazePointer.Instance._completeBrush = value;
+                GazePointer.Instance.CompleteBrush = value;
             }
         }
 
@@ -71,12 +71,12 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         {
             get
             {
-                return GazePointer.Instance._dwellStrokeThickness;
+                return GazePointer.Instance.DwellStrokeThickness;
             }
 
             set
             {
-                GazePointer.Instance._dwellStrokeThickness = value;
+                GazePointer.Instance.DwellStrokeThickness = value;
             }
         }
 
@@ -87,23 +87,23 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         {
             get
             {
-                return GazePointer.Instance._interaction;
+                return GazePointer.Instance.Interaction;
             }
 
             set
             {
-                if (GazePointer.Instance._interaction != value)
+                if (GazePointer.Instance.Interaction != value)
                 {
                     if (value == GazeInteraction.Interaction.Enabled)
                     {
                         GazePointer.Instance.AddRoot(0);
                     }
-                    else if (GazePointer.Instance._interaction == GazeInteraction.Interaction.Enabled)
+                    else if (GazePointer.Instance.Interaction == GazeInteraction.Interaction.Enabled)
                     {
                         GazePointer.Instance.RemoveRoot(0);
                     }
 
-                    GazePointer.Instance._interaction = value;
+                    GazePointer.Instance.Interaction = value;
                 }
             }
         }
@@ -407,7 +407,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         /// <summary>
         /// Invoke the default action of the specified UIElement.
         /// </summary>
-        public static void Invoke(UIElement element) 
+        public static void Invoke(UIElement element)
         {
             var item = GazeTargetItem.GetOrCreate(element);
             item.Invoke();
@@ -439,8 +439,8 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         /// </summary>
         public static event EventHandler<object> IsDeviceAvailableChanged
         {
-            add { return GetGazePointer.Instance.IsDeviceAvailableChanged += value; }
-            remove { GetGazePointer.Instance.IsDeviceAvailableChanged -= value; }
+            add { return GazePointer.Instance.IsDeviceAvailableChanged += value; }
+            remove { GazePointer.Instance.IsDeviceAvailableChanged -= value; }
         }
     }
 }
