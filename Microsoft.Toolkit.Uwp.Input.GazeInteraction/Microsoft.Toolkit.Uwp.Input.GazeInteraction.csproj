@@ -130,6 +130,7 @@
     <Compile Include="GazeFeedbackPopupFactory.cs" />
     <Compile Include="GazeFilterArgs.cs" />
     <Compile Include="GazeHidUsages.cs" />
+    <Compile Include="GazeInput.cs" />
     <Compile Include="IGazeFilter.cs" />
     <Compile Include="Interaction.cs" />
     <Compile Include="NullFilter.cs" />
