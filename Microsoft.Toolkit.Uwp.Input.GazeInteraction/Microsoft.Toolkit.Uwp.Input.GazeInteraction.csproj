@@ -133,6 +133,7 @@
     <Compile Include="GazeInput.cs" />
     <Compile Include="GazePointer.cs" />
     <Compile Include="GazePointerProxy.cs" />
+    <Compile Include="GazeTargetItem.cs" />
     <Compile Include="IGazeFilter.cs" />
     <Compile Include="Interaction.cs" />
     <Compile Include="NullFilter.cs" />

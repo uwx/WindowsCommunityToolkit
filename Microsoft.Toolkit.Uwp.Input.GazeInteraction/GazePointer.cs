@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Input.Preview;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -153,7 +154,24 @@ private:
 
         internal bool IsDeviceAvailable { get { return _devices.Count != 0; } }
 
-        internal event EventHandler<object> IsDeviceAvailableChanged;
+        internal event EventHandler<object> IsDeviceAvailableChanged
+        {
+            add => _isDeviceAvailableChangedHandlerTable.AddEventHandler(value);
+
+            remove => _isDeviceAvailableChangedHandlerTable.RemoveEventHandler(value);
+        }
+
+        private EventRegistrationTokenTable<EventHandler<object>> _isDeviceAvailableChangedHandlerTable = new EventRegistrationTokenTable<EventHandler<object>>();
+
+        internal EventRegistrationToken AddIsDeviceAvailableChangedHandler(EventHandler<object> value)
+        {
+            return _isDeviceAvailableChangedHandlerTable.AddEventHandler(value);
+        }
+
+        internal void RemoveIsDeviceAvailableChangedHandler(EventRegistrationToken value)
+        {
+            _isDeviceAvailableChangedHandlerTable.RemoveEventHandler(value);
+        }
         /*
 
     private:

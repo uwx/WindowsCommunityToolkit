@@ -180,7 +180,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         /// <summary>
         /// Gets identifies the MaxDwellRepeatCount dependency property
         /// </summary>
-        public static DependencyProperty MaxDwellRepeatCountProperty { get; } = DependencyProperty.RegisterAttached("MaxDwellRepeatCount", typeof(int), typeof(GazeInput), new PropertyMetadata((Object)0));
+        public static DependencyProperty MaxDwellRepeatCountProperty { get; } = DependencyProperty.RegisterAttached("MaxDwellRepeatCount", typeof(int), typeof(GazeInput), new PropertyMetadata((object)0));
 
         /// <summary>
         /// Gets identifyes the IsSwitchEnabled dependency property
@@ -439,8 +439,9 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         /// </summary>
         public static event EventHandler<object> IsDeviceAvailableChanged
         {
-            add { return GazePointer.Instance.IsDeviceAvailableChanged += value; }
-            remove { GazePointer.Instance.IsDeviceAvailableChanged -= value; }
+            add => GazePointer.Instance.AddIsDeviceAvailableChangedHandler(value);
+
+            remove => GazePointer.Instance.RemoveIsDeviceAvailableChangedHandler(value);
         }
     }
 }
