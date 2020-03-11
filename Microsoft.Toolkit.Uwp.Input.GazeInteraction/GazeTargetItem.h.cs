@@ -8,7 +8,6 @@ using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-
     internal abstract class GazeTargetItem
     {
         internal TimeSpan DetailedTime { get; set; }

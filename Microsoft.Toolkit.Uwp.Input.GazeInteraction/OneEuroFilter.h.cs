@@ -1,61 +1,55 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
+using System;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
-
-const float ONEEUROFILTER_DEFAULT_BETA = 5.0f;
-const float ONEEUROFILTER_DEFAULT_CUTOFF = 0.1f;
-const float ONEEUROFILTER_DEFAULT_VELOCITY_CUTOFF = 1.0f;
-
-internal class LowpassFilter sealed
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-public:
-    LowpassFilter()
+    internal sealed class LowpassFilter
     {
-        Previous = Point(0, 0);
-    }
+        public LowpassFilter()
+        {
+            Previous = new Point(0, 0);
+        }
 
-    LowpassFilter(Point initial)
+        public LowpassFilter(Point initial)
+        {
+            Previous = initial;
+        }
+
+        public Point Previous { get; set; }
+
+        public Point Update(Point point, Point alpha)
+        {
+            Point pt;
+            pt.X = (alpha.X * point.X) + ((1 - alpha.X) * Previous.X);
+            pt.Y = (alpha.Y * point.Y) + ((1 - alpha.Y) * Previous.Y);
+            Previous = pt;
+            return Previous;
+        }
+    };
+
+    internal sealed class OneEuroFilter : IGazeFilter
     {
-        Previous = initial;
+        internal const float ONEEUROFILTER_DEFAULT_BETA = 5.0f;
+        internal const float ONEEUROFILTER_DEFAULT_CUTOFF = 0.1f;
+        internal const float ONEEUROFILTER_DEFAULT_VELOCITY_CUTOFF = 1.0f;
+
+        public OneEuroFilter() { throw new ToDoException(); }
+        public OneEuroFilter(float cutoff, float beta) { throw new ToDoException(); }
+        public GazeFilterArgs Update(GazeFilterArgs args) { throw new ToDoException(); }
+        public void LoadSettings(ValueSet settings) { throw new ToDoException(); }
+
+        public float Beta;
+        public float Cutoff;
+        public float VelocityCutoff;
+
+        private float Alpha(float rate, float cutoff) { throw new ToDoException(); }
+
+        private TimeSpan _lastTimestamp;
+        private LowpassFilter _pointFilter;
+        private LowpassFilter _deltaFilter;
     }
-
-    property Point Previous;
-
-    Point Update(Point point, Point alpha)
-    {
-        Point pt;
-        pt.X = (alpha.X * point.X) + ((1 - alpha.X) * Previous.X);
-        pt.Y = (alpha.Y * point.Y) + ((1 - alpha.Y) * Previous.Y);
-        Previous = pt;
-        return Previous;
-    }
-};
-
-internal class OneEuroFilter sealed : IGazeFilter
-{
-public:
-    OneEuroFilter();
-    OneEuroFilter(float cutoff, float beta);
-    virtual GazeFilterArgs Update(GazeFilterArgs args);
-    virtual void LoadSettings(ValueSet settings);
-
-public:
-    property float Beta;
-    property float Cutoff;
-    property float VelocityCutoff;
-
-private:
-    float  Alpha(float rate, float cutoff);
-
-private:
-    TimeSpan       _lastTimestamp;
-    LowpassFilter  _pointFilter;
-    LowpassFilter  _deltaFilter;
-
-};
-
-*/ }
+}
