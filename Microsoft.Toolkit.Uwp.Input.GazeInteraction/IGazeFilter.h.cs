@@ -40,8 +40,8 @@ private:
 // and returns filtered output
 private interface class IGazeFilter
 {
-    GazeFilterArgs^ Update(GazeFilterArgs^ args);
-    void LoadSettings(ValueSet^ settings);
+    GazeFilterArgs Update(GazeFilterArgs args);
+    void LoadSettings(ValueSet settings);
 };
 
 
@@ -50,12 +50,12 @@ private interface class IGazeFilter
 private ref class NullFilter sealed : IGazeFilter
 {
 public:
-    virtual inline GazeFilterArgs^ Update(GazeFilterArgs^ args)
+    virtual inline GazeFilterArgs Update(GazeFilterArgs args)
     {
         return args;
     }
 
-    virtual inline void LoadSettings(ValueSet^ settings)
+    virtual inline void LoadSettings(ValueSet settings)
     {
 
     }

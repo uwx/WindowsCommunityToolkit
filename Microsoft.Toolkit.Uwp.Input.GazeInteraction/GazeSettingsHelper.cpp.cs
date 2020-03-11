@@ -10,11 +10,11 @@ GazeSettingsHelper.GazeSettingsHelper()
 {
 }
 
-Windows.Foundation.IAsyncAction^ GazeSettingsHelper.RetrieveSharedSettings(ValueSet^ settings)
+Windows.Foundation.IAsyncAction GazeSettingsHelper.RetrieveSharedSettings(ValueSet settings)
 {
     return create_async([settings] {
         // Setup a new app service connection
-        AppServiceConnection^ connection = ref new AppServiceConnection();
+        AppServiceConnection connection = new AppServiceConnection();
         connection.AppServiceName = "com.microsoft.ectksettings";
         connection.PackageFamilyName = "Microsoft.EyeControlToolkitSettings_s9y1p3hwd5qda";
 
@@ -26,7 +26,7 @@ Windows.Foundation.IAsyncAction^ GazeSettingsHelper.RetrieveSharedSettings(Value
             case AppServiceConnectionStatus.Success:
                 // The new connection opened successfully
                 // Set up the inputs and send a message to the service
-                return create_task(connection.SendMessageAsync(ref new ValueSet()));
+                return create_task(connection.SendMessageAsync(new ValueSet()));
                 break;
 
             default:
@@ -35,12 +35,12 @@ Windows.Foundation.IAsyncAction^ GazeSettingsHelper.RetrieveSharedSettings(Value
             case AppServiceConnectionStatus.AppServiceUnavailable:
             case AppServiceConnectionStatus.Unknown:
                 // All return paths need to return a task of type AppServiceResponse, so fake it
-                AppServiceResponse ^ response = nullptr;
+                AppServiceResponse  response = null;
                 return task_from_result(response);
             }
-        }).then([settings](AppServiceResponse^ response)
+        }).then([settings](AppServiceResponse response)
         {
-            if (response == nullptr)
+            if (response == null)
             {
                 return;
             }
@@ -48,7 +48,7 @@ Windows.Foundation.IAsyncAction^ GazeSettingsHelper.RetrieveSharedSettings(Value
             switch (response.Status)
             {
             case AppServiceResponseStatus.Success:
-                for each (auto item in response.Message)
+                for each (var item in response.Message)
                 {
                     settings.Insert(item.Key, item.Value);
                 }

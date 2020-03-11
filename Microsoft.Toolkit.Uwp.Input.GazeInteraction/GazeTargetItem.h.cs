@@ -16,16 +16,16 @@ internal:
     property TimeSpan NextStateTime;
     property TimeSpan LastTimestamp;
     property PointerState ElementState;
-    property UIElement^ TargetElement;
+    property UIElement TargetElement;
     property int RepeatCount;
     property int MaxDwellRepeatCount;
 
-    GazeTargetItem(UIElement^ target)
+    GazeTargetItem(UIElement target)
     {
         TargetElement = target;
     }
 
-    static GazeTargetItem^ GetOrCreate(UIElement^ element);
+    static GazeTargetItem GetOrCreate(UIElement element);
 
     virtual void Invoke() = 0;
 
@@ -91,7 +91,7 @@ private:
     TimeSpan _prevStateTime;
     TimeSpan _nextStateTime;
     DwellProgressState _notifiedProgressState = DwellProgressState.Idle;
-    Popup^ _feedbackPopup;
+    Popup _feedbackPopup;
 };
 
 */ }

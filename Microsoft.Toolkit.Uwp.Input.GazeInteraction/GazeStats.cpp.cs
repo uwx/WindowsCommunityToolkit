@@ -6,7 +6,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 GazeStats.GazeStats(int maxHistoryLen)
 {
     _maxHistoryLen = maxHistoryLen;
-    _history = ref new Vector<Point>();
+    _history = new Vector<Point>();
 }
 
 void GazeStats.Reset()
@@ -25,7 +25,7 @@ void GazeStats.Update(float x, float y)
 
     if (_history.Size > _maxHistoryLen)
     {
-        auto oldest = _history.GetAt(0);
+        var oldest = _history.GetAt(0);
         _history.RemoveAt(0);
             
         _sumX -= oldest.X;

@@ -18,52 +18,52 @@ namespace GazeHidParsers {
     public class GazeHidPositions sealed
     {
     public:
-        property GazeHidPosition^ LeftEyePosition;
-        property GazeHidPosition^ RightEyePosition;
-        property GazeHidPosition^ HeadPosition;
-        property GazeHidPosition^ HeadRotation;
+        property GazeHidPosition LeftEyePosition;
+        property GazeHidPosition RightEyePosition;
+        property GazeHidPosition HeadPosition;
+        property GazeHidPosition HeadRotation;
     };
 
     public class GazeHidPositionParser sealed
     {
     public:
-        GazeHidPositionParser(GazeDevicePreview ^ gazeDevice, uint16 usage);
+        GazeHidPositionParser(GazeDevicePreview  gazeDevice, uint16 usage);
 
-        GazeHidPosition^ GetPosition(HidInputReport ^ report);
+        GazeHidPosition GetPosition(HidInputReport  report);
 
     private:
-        HidNumericControlDescription ^ _X = nullptr;
-        HidNumericControlDescription ^ _Y = nullptr;
-        HidNumericControlDescription ^ _Z = nullptr;
+        HidNumericControlDescription  _X = null;
+        HidNumericControlDescription  _Y = null;
+        HidNumericControlDescription  _Z = null;
         uint16 _usage                     = 0x0000;
     };
 
     public class GazeHidRotationParser sealed
     {
     public:
-        GazeHidRotationParser(GazeDevicePreview ^ gazeDevice, uint16 usage);
+        GazeHidRotationParser(GazeDevicePreview  gazeDevice, uint16 usage);
 
-        GazeHidPosition^ GetRotation(HidInputReport^ report);
+        GazeHidPosition GetRotation(HidInputReport report);
 
     private:
-        HidNumericControlDescription ^ _X = nullptr;
-        HidNumericControlDescription ^ _Y = nullptr;
-        HidNumericControlDescription ^ _Z = nullptr;
+        HidNumericControlDescription  _X = null;
+        HidNumericControlDescription  _Y = null;
+        HidNumericControlDescription  _Z = null;
         uint16 _usage                     = 0x0000;
     };
 
     public class GazeHidPositionsParser sealed
     {
     public:
-        GazeHidPositionsParser(GazeDevicePreview ^ gazeDevice);
+        GazeHidPositionsParser(GazeDevicePreview  gazeDevice);
 
-        GazeHidPositions^ GetGazeHidPositions(HidInputReport ^ report);
+        GazeHidPositions GetGazeHidPositions(HidInputReport  report);
 
     private:
-        GazeHidPositionParser ^ _leftEyePositionParser;
-        GazeHidPositionParser ^ _rightEyePositionParser;
-        GazeHidPositionParser ^ _headPositionParser;
-        GazeHidRotationParser ^ _headRotationParser;
+        GazeHidPositionParser  _leftEyePositionParser;
+        GazeHidPositionParser  _rightEyePositionParser;
+        GazeHidPositionParser  _headPositionParser;
+        GazeHidRotationParser  _headRotationParser;
     };
 }
 

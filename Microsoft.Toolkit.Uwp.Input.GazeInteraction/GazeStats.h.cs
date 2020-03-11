@@ -20,7 +20,7 @@ public:
     }
 
     //
-    // StdDev = sqrt(Variance) = sqrt(E[X^2] – (E[X])^2)
+    // StdDev = sqrt(Variance) = sqrt(E[X2] – (E[X])2)
     //
     property Point StandardDeviation
     {
@@ -45,7 +45,7 @@ private:
     double          _sumY;
     double          _sumSquaredX;
     double          _sumSquaredY;
-    Vector<Point>^  _history;
+    Vector<Point>  _history;
 };
 
 */ }

@@ -40,8 +40,8 @@ private ref class OneEuroFilter sealed : IGazeFilter
 public:
     OneEuroFilter();
     OneEuroFilter(float cutoff, float beta);
-    virtual GazeFilterArgs^ Update(GazeFilterArgs^ args);
-    virtual void LoadSettings(ValueSet^ settings);
+    virtual GazeFilterArgs Update(GazeFilterArgs args);
+    virtual void LoadSettings(ValueSet settings);
 
 public:
     property float Beta;
@@ -53,8 +53,8 @@ private:
 
 private:
     TimeSpan       _lastTimestamp;
-    LowpassFilter^  _pointFilter;
-    LowpassFilter^  _deltaFilter;
+    LowpassFilter  _pointFilter;
+    LowpassFilter  _deltaFilter;
 
 };
 

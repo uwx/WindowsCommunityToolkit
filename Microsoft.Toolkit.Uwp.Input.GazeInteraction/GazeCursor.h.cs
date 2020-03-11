@@ -1,87 +1,60 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
+using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
-namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
-
-private ref class GazeCursor sealed
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-private:
-    const int DEFAULT_CURSOR_RADIUS = 5;
-    const bool DEFAULT_CURSOR_VISIBILITY = true;
-
-public:
-    void LoadSettings(ValueSet^ settings);
-    property int CursorRadius
+    internal sealed partial class GazeCursor
     {
-        int get() { return _cursorRadius; }
-        void set(int value);
-    }
+        private const int DEFAULT_CURSOR_RADIUS = 5;
+        private const bool DEFAULT_CURSOR_VISIBILITY = true;
 
-    property bool IsCursorVisible
-    {
-        bool get() { return _isCursorVisible; }
-        void set(bool value);
-    }
-
-    property bool IsGazeEntered
-    {
-        bool get() { return _isGazeEntered; }
-        void set(bool value);
-    }
-
-    property Point Position
-    {
-        Point get()
+        public Point Position
         {
-            return _cursorPosition;
+            get
+            {
+                return _cursorPosition;
+            }
+
+            set
+            {
+                _cursorPosition = value;
+                _gazePopup.HorizontalOffset = value.X;
+                _gazePopup.VerticalOffset = value.Y;
+                SetVisibility();
+            }
         }
 
-        void set(Point value)
+        public UIElement PopupChild
         {
-            _cursorPosition = value;
-            _gazePopup.HorizontalOffset = value.X;
-            _gazePopup.VerticalOffset = value.Y;
-            SetVisibility();
+            get
+            {
+                return _gazePopup.Child;
+            }
+            set
+            {
+                _gazePopup.Child = value;
+            }
         }
+
+        public FrameworkElement CursorElement
+        {
+            get
+            {
+                return _gazePopup.Child as FrameworkElement;
+            }
+        }
+
+        private Popup _gazePopup;
+        private Point _cursorPosition;
+        private int _cursorRadius = DEFAULT_CURSOR_RADIUS;
+        private bool _isCursorVisible = DEFAULT_CURSOR_VISIBILITY;
+        private bool _isGazeEntered;
     }
-
-	property UIElement^ PopupChild
-	{
-		UIElement^ get()
-		{
-			return _gazePopup.Child;
-		}
-		void set(UIElement^ value)
-		{
-			_gazePopup.Child = value;
-		}
-	}
-
-	property FrameworkElement^ CursorElement
-	{
-		FrameworkElement^ get()
-		{
-			return dynamic_cast<FrameworkElement^>(_gazePopup.Child);
-		}
-	}
-
-internal:
-    GazeCursor();
-
-private:
-    void SetVisibility();
-
-    Popup^              _gazePopup;
-    Point               _cursorPosition = {};
-    int                 _cursorRadius = DEFAULT_CURSOR_RADIUS;
-    bool                _isCursorVisible = DEFAULT_CURSOR_VISIBILITY;
-    bool _isGazeEntered;
-
-};
-
-*/ }
+}

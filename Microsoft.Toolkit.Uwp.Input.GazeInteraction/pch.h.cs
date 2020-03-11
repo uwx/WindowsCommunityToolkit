@@ -17,6 +17,12 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
+using System;
+
+class ToDoException : Exception
+{
+
+}
 
 /*
 #include <strsafe.h>

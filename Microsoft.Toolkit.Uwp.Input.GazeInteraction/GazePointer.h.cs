@@ -33,7 +33,7 @@ public:
     /// <summary>
     /// Loads a settings collection into GazePointer.
     /// </summary>
-    void LoadSettings(ValueSet^ settings);
+    void LoadSettings(ValueSet settings);
 
     /// <summary>
     /// When in switch mode, will issue a click on the currently fixated element
@@ -43,50 +43,50 @@ public:
     /// <summary>
     /// Run device calibration.
     /// </summary>
-    IAsyncOperation<bool>^ RequestCalibrationAsync();
+    IAsyncOperation<bool> RequestCalibrationAsync();
 
-    event EventHandler<GazeEventArgs^>^ GazeEvent
+    event EventHandler<GazeEventArgs> GazeEvent
     {
-        EventRegistrationToken add(EventHandler<GazeEventArgs^>^ handler);
+        EventRegistrationToken add(EventHandler<GazeEventArgs> handler);
         void remove(EventRegistrationToken token);
-        void raise(Object^ sender, GazeEventArgs^ e);
+        void raise(Object sender, GazeEventArgs e);
     }
 
 	/// <summary>
 	/// The UIElement representing the cursor.
 	/// </summary>
-	property UIElement^ CursorElement
+	property UIElement CursorElement
 	{
-		UIElement^ get() { return _gazeCursor.PopupChild; }
-		void set(UIElement^ value) { _gazeCursor.PopupChild = value; }
+		UIElement get() { return _gazeCursor.PopupChild; }
+		void set(UIElement value) { _gazeCursor.PopupChild = value; }
 	}
 
 private:
 
-    event EventHandler<GazeEventArgs^>^ _gazeEvent;
-    GazeEventArgs^ const _gazeEventArgs = ref new GazeEventArgs();
+    event EventHandler<GazeEventArgs> _gazeEvent;
+    GazeEventArgs const _gazeEventArgs = new GazeEventArgs();
     int _gazeEventCount = 0;
 
 internal:
-    Brush^ _enterBrush = nullptr;
+    Brush _enterBrush = null;
 
-    Brush^ _progressBrush = ref new SolidColorBrush(Colors.Green);
+    Brush _progressBrush = new SolidColorBrush(Colors.Green);
 
-    Brush^ _completeBrush = ref new SolidColorBrush(Colors.Red);
+    Brush _completeBrush = new SolidColorBrush(Colors.Red);
 
     double _dwellStrokeThickness = 2;
 
     Interaction _interaction = Interaction.Disabled;
 
-    GazeTargetItem^ _nonInvokeGazeTargetItem;
+    GazeTargetItem _nonInvokeGazeTargetItem;
 
-    GazeFeedbackPopupFactory^ _gazeFeedbackPopupFactory = ref new GazeFeedbackPopupFactory();
+    GazeFeedbackPopupFactory _gazeFeedbackPopupFactory = new GazeFeedbackPopupFactory();
 
 internal:
     void Reset();
-    void SetElementStateDelay(UIElement ^element, PointerState pointerState, TimeSpan stateDelay);
-    TimeSpan GetElementStateDelay(UIElement ^element, DependencyProperty^ property, TimeSpan defaultValue);
-    TimeSpan GetElementStateDelay(UIElement^ element, PointerState pointerState);
+    void SetElementStateDelay(UIElement element, PointerState pointerState, TimeSpan stateDelay);
+    TimeSpan GetElementStateDelay(UIElement element, DependencyProperty property, TimeSpan defaultValue);
+    TimeSpan GetElementStateDelay(UIElement element, PointerState pointerState);
 
     // Provide a configurable delay for when the EyesOffDelay event is fired
     // GOTCHA: this value requires that _eyesOffTimer is instantiated so that it
@@ -106,7 +106,7 @@ internal:
 
     // Pluggable filter for eye tracking sample data. This defaults to being set to the
     // NullFilter which performs no filtering of input samples.
-    property IGazeFilter^ Filter;
+    property IGazeFilter Filter;
 
     property bool IsCursorVisible
     {
@@ -136,7 +136,7 @@ public:
 
 internal:
 
-    static property GazePointer^ Instance { GazePointer^ get(); }
+    static property GazePointer Instance { GazePointer get(); }
     EventRegistrationToken _unloadedToken;
 
     void AddRoot(int proxyId);
@@ -144,7 +144,7 @@ internal:
 
 
     property bool IsDeviceAvailable { bool get() { return _devices.Size != 0; }}
-    event EventHandler<Object^>^ IsDeviceAvailableChanged;
+    event EventHandler<Object> IsDeviceAvailableChanged;
 
 private:
 
@@ -161,61 +161,61 @@ private:
     void    InitializeGazeInputSource();
     void    DeinitializeGazeInputSource();
 
-    void ActivateGazeTargetItem(GazeTargetItem^ target);
-    GazeTargetItem^          GetHitTarget(Point gazePoint);
-    GazeTargetItem^          ResolveHitTarget(Point gazePoint, TimeSpan timestamp);
+    void ActivateGazeTargetItem(GazeTargetItem target);
+    GazeTargetItem          GetHitTarget(Point gazePoint);
+    GazeTargetItem          ResolveHitTarget(Point gazePoint, TimeSpan timestamp);
 
     void    CheckIfExiting(TimeSpan curTimestamp);
-    void    RaiseGazePointerEvent(GazeTargetItem^ target, PointerState state, TimeSpan elapsedTime);
+    void    RaiseGazePointerEvent(GazeTargetItem target, PointerState state, TimeSpan elapsedTime);
 
     void OnGazeEntered(
-        GazeInputSourcePreview^ provider,
-        GazeEnteredPreviewEventArgs^ args);
+        GazeInputSourcePreview provider,
+        GazeEnteredPreviewEventArgs args);
     void OnGazeMoved(
-        GazeInputSourcePreview^ provider,
-        GazeMovedPreviewEventArgs^ args);
+        GazeInputSourcePreview provider,
+        GazeMovedPreviewEventArgs args);
     void OnGazeExited(
-        GazeInputSourcePreview^ provider,
-        GazeExitedPreviewEventArgs^ args);
+        GazeInputSourcePreview provider,
+        GazeExitedPreviewEventArgs args);
 
     void ProcessGazePoint(TimeSpan timestamp, Point position);
 
-    void    OnEyesOff(Object ^sender, Object ^ea);
+    void    OnEyesOff(Object sender, Object ea);
 
-    void OnDeviceAdded(GazeDeviceWatcherPreview^ sender, GazeDeviceWatcherAddedPreviewEventArgs^ args);
-    void OnDeviceRemoved(GazeDeviceWatcherPreview^ sender, GazeDeviceWatcherRemovedPreviewEventArgs^ args);
+    void OnDeviceAdded(GazeDeviceWatcherPreview sender, GazeDeviceWatcherAddedPreviewEventArgs args);
+    void OnDeviceRemoved(GazeDeviceWatcherPreview sender, GazeDeviceWatcherRemovedPreviewEventArgs args);
 
 private:
-    Vector<int>^ _roots = ref new Vector<int>();
+    Vector<int> _roots = new Vector<int>();
 
     TimeSpan                               _eyesOffDelay;
 
-    GazeCursor^                         _gazeCursor;
-    DispatcherTimer^                    _eyesOffTimer;
+    GazeCursor                         _gazeCursor;
+    DispatcherTimer                    _eyesOffTimer;
 
     // _offScreenElement is a pseudo-element that represents the area outside
     // the screen so we can track how long the user has been looking outside
     // the screen and appropriately trigger the EyesOff event
-    Control^                            _offScreenElement;
+    Control                            _offScreenElement;
 
     // The value is the total time that FrameworkElement has been gazed at
-    Vector<GazeTargetItem^>^            _activeHitTargetTimes;
+    Vector<GazeTargetItem>            _activeHitTargetTimes;
 
     // A vector to track the history of observed gaze targets
-    Vector<GazeHistoryItem^>^           _gazeHistory;
+    Vector<GazeHistoryItem>           _gazeHistory;
     TimeSpan                               _maxHistoryTime;
 
     // Used to determine if exit events need to be fired by adding GAZE_IDLE_TIME to the last 
     // saved timestamp
     TimeSpan                           _lastTimestamp;
 
-    GazeInputSourcePreview^             _gazeInputSource;
+    GazeInputSourcePreview             _gazeInputSource;
     EventRegistrationToken              _gazeEnteredToken;
     EventRegistrationToken              _gazeMovedToken;
     EventRegistrationToken              _gazeExitedToken;
 
-    GazeDeviceWatcherPreview^ _watcher;
-    Vector<GazeDevicePreview^>^ _devices;
+    GazeDeviceWatcherPreview _watcher;
+    Vector<GazeDevicePreview> _devices;
     EventRegistrationToken _deviceAddedToken;
     EventRegistrationToken _deviceRemovedToken;
 
@@ -227,7 +227,7 @@ private:
 
     bool                                _isAlwaysActivated;
     bool                                _isSwitchEnabled;
-    GazeTargetItem^                     _currentlyFixatedElement;
+    GazeTargetItem                     _currentlyFixatedElement;
 };
 
 */ }

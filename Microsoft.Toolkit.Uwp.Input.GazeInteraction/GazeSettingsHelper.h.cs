@@ -15,7 +15,7 @@ public:
     /// <summary>
     /// Retrieves settings as a ValueSet from a shared store.
     /// </summary>
-    static Windows.Foundation.IAsyncAction^ RetrieveSharedSettings(ValueSet^ settings);
+    static Windows.Foundation.IAsyncAction RetrieveSharedSettings(ValueSet settings);
 
 private:
     GazeSettingsHelper();

@@ -10,13 +10,13 @@ private ref class GazeFeedbackPopupFactory
 {
 private:
 
-    Vector<Popup^>^ s_cache = ref new Vector<Popup^>();
+    Vector<Popup> s_cache = new Vector<Popup>();
 
 public:
 
-    Popup^ Get();
+    Popup Get();
 
-    void Return(Popup^ popup);
+    void Return(Popup popup);
 };
 
 */ }

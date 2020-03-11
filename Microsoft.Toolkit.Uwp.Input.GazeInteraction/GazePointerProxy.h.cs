@@ -19,7 +19,7 @@ public:
     /// A private attached property for associating an instance of this class with the UIElement
     /// to which it refers.
     /// </summary>
-    static property DependencyProperty^ GazePointerProxyProperty { DependencyProperty^ get(); };
+    static property DependencyProperty GazePointerProxyProperty { DependencyProperty get(); };
 
 internal:
 
@@ -28,7 +28,7 @@ internal:
     /// </summary>
     /// <param name="element">The element being set. May be null to indicate whole user interface.</param>
     /// <param name="value">The interaction enablement value being set.</param>
-    static void SetInteraction(FrameworkElement^ element, Interaction value);
+    static void SetInteraction(FrameworkElement element, Interaction value);
 
 private:
 
@@ -36,24 +36,24 @@ private:
     /// Constructor.
     /// </summary>
     /// <param name="element">The element proxy is attaching to.</param>
-    GazePointerProxy(FrameworkElement^ element);
+    GazePointerProxy(FrameworkElement element);
 
     /// <summary>
     /// Set the enablement of this proxy.
     /// </summary>
     /// <param name="sender">The object setting the enable value.</param>
     /// <param name="value">The new enable value.</param>
-    void SetIsEnabled(Object^ sender, bool value);
+    void SetIsEnabled(Object sender, bool value);
 
     /// <summary>
     /// The handler to be called when the corresponding element joins the visual tree.
     /// </summary>
-    void OnLoaded(Object^ sender, RoutedEventArgs^ args);
+    void OnLoaded(Object sender, RoutedEventArgs args);
 
     /// <summary>
     /// The handler to be called when the corresponding element leaves the visual tree.
     /// </summary>
-    void OnUnloaded(Object^ sender, RoutedEventArgs^ args);
+    void OnUnloaded(Object sender, RoutedEventArgs args);
 
 private:
 

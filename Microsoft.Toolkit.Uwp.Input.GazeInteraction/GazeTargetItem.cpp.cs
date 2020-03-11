@@ -7,50 +7,50 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
-static DependencyProperty^ GazeTargetItemProperty = DependencyProperty.RegisterAttached("_GazeTargetItem", GazeTargetItem.typeid, GazeTargetItem.typeid, ref new PropertyMetadata(nullptr));
+static DependencyProperty GazeTargetItemProperty = DependencyProperty.RegisterAttached("_GazeTargetItem", GazeTargetItem.typeid, GazeTargetItem.typeid, new PropertyMetadata(null));
 
 template<PatternInterface P, typename T>
 ref class PatternGazeTargetItem abstract : GazeTargetItem
 {
 internal:
 
-    PatternGazeTargetItem(UIElement^ element)
+    PatternGazeTargetItem(UIElement element)
         : GazeTargetItem(element)
     {
     }
 
-    static T^ GetPattern(AutomationPeer^ peer)
+    static T GetPattern(AutomationPeer peer)
     {
-        auto pattern = peer.GetPattern(P);
-        return safe_cast<T^>(pattern);
+        var pattern = peer.GetPattern(P);
+        return safe_cast<T>(pattern);
     }
 
-    static bool IsCandidate(AutomationPeer^ peer)
+    static bool IsCandidate(AutomationPeer peer)
     {
-        auto provider = GetPattern(peer);
-        return provider != nullptr;
+        var provider = GetPattern(peer);
+        return provider != null;
     }
 
     void Invoke() override sealed
     {
-        auto peer = FrameworkElementAutomationPeer.FromElement(TargetElement);
-        auto provider = GetPattern(peer);
+        var peer = FrameworkElementAutomationPeer.FromElement(TargetElement);
+        var provider = GetPattern(peer);
         Invoke(provider);
     }
 
-    virtual void Invoke(T^ provider) = 0;
+    virtual void Invoke(T provider) = 0;
 };
 
 ref class InvokePatternGazeTargetItem : PatternGazeTargetItem<PatternInterface.Invoke, IInvokeProvider>
 {
 internal:
 
-    InvokePatternGazeTargetItem(UIElement^ element)
+    InvokePatternGazeTargetItem(UIElement element)
         : PatternGazeTargetItem(element)
     {
     }
 
-    void Invoke(IInvokeProvider^ provider) override sealed
+    void Invoke(IInvokeProvider provider) override sealed
     {
         provider.Invoke();
     }
@@ -60,12 +60,12 @@ ref class TogglePatternGazeTargetItem : PatternGazeTargetItem<PatternInterface.T
 {
 internal:
 
-    TogglePatternGazeTargetItem(UIElement^ element)
+    TogglePatternGazeTargetItem(UIElement element)
         : PatternGazeTargetItem(element)
     {
     }
 
-    void Invoke(IToggleProvider^ provider) override
+    void Invoke(IToggleProvider provider) override
     {
         provider.Toggle();
     }
@@ -75,12 +75,12 @@ ref class SelectionItemPatternGazeTargetItem : PatternGazeTargetItem<PatternInte
 {
 internal:
 
-    SelectionItemPatternGazeTargetItem(UIElement^ element)
+    SelectionItemPatternGazeTargetItem(UIElement element)
         : PatternGazeTargetItem(element)
     {
     }
 
-    void Invoke(ISelectionItemProvider^ provider) override
+    void Invoke(ISelectionItemProvider provider) override
     {
         provider.Select();
     }
@@ -90,12 +90,12 @@ ref class ExpandCollapsePatternGazeTargetItem : PatternGazeTargetItem<PatternInt
 {
 internal:
 
-    ExpandCollapsePatternGazeTargetItem(UIElement^ element)
+    ExpandCollapsePatternGazeTargetItem(UIElement element)
         : PatternGazeTargetItem(element)
     {
     }
 
-    void Invoke(IExpandCollapseProvider^ provider) override
+    void Invoke(IExpandCollapseProvider provider) override
     {
         switch (provider.ExpandCollapseState)
         {
@@ -114,23 +114,23 @@ ref class ComboBoxItemGazeTargetItem sealed : GazeTargetItem
 {
 internal:
 
-    ComboBoxItemGazeTargetItem(UIElement^ element)
+    ComboBoxItemGazeTargetItem(UIElement element)
         : GazeTargetItem(element)
     {
     }
 
     void Invoke() override
     {
-        auto peer = FrameworkElementAutomationPeer.FromElement(TargetElement);
-        auto comboBoxItemAutomationPeer = dynamic_cast<ComboBoxItemAutomationPeer^>(peer);
-        auto comboBoxItem = safe_cast<ComboBoxItem^>(comboBoxItemAutomationPeer.Owner);
+        var peer = FrameworkElementAutomationPeer.FromElement(TargetElement);
+        var comboBoxItemAutomationPeer = dynamic_cast<ComboBoxItemAutomationPeer>(peer);
+        var comboBoxItem = safe_cast<ComboBoxItem>(comboBoxItemAutomationPeer.Owner);
 
-        AutomationPeer^ ancestor = comboBoxItemAutomationPeer;
-        auto comboBoxAutomationPeer = dynamic_cast<ComboBoxAutomationPeer^>(ancestor);
-        while (comboBoxAutomationPeer == nullptr)
+        AutomationPeer ancestor = comboBoxItemAutomationPeer;
+        var comboBoxAutomationPeer = dynamic_cast<ComboBoxAutomationPeer>(ancestor);
+        while (comboBoxAutomationPeer == null)
         {
-            ancestor = safe_cast<AutomationPeer^>(ancestor.Navigate(AutomationNavigationDirection.Parent));
-            comboBoxAutomationPeer = dynamic_cast<ComboBoxAutomationPeer^>(ancestor);
+            ancestor = safe_cast<AutomationPeer>(ancestor.Navigate(AutomationNavigationDirection.Parent));
+            comboBoxAutomationPeer = dynamic_cast<ComboBoxAutomationPeer>(ancestor);
         }
 
         comboBoxItem.IsSelected = true;
@@ -142,49 +142,49 @@ ref class PivotItemGazeTargetItem sealed : GazeTargetItem
 {
 internal:
 
-    PivotItemGazeTargetItem(UIElement^ element)
+    PivotItemGazeTargetItem(UIElement element)
         : GazeTargetItem(element)
     {
     }
 
     void Invoke() override
     {
-        auto headerItem = safe_cast<PivotHeaderItem^>(TargetElement);
-        auto headerPanel = safe_cast<PivotHeaderPanel^>(VisualTreeHelper.GetParent(headerItem));
+        var headerItem = safe_cast<PivotHeaderItem>(TargetElement);
+        var headerPanel = safe_cast<PivotHeaderPanel>(VisualTreeHelper.GetParent(headerItem));
         unsigned index;
         headerPanel.Children.IndexOf(headerItem, &index);
 
-        DependencyObject^ walker = headerPanel;
-        Pivot^ pivot;
+        DependencyObject walker = headerPanel;
+        Pivot pivot;
         do
         {
             walker = VisualTreeHelper.GetParent(walker);
-            pivot = dynamic_cast<Pivot^>(walker);
-        } while (pivot == nullptr);
+            pivot = dynamic_cast<Pivot>(walker);
+        } while (pivot == null);
 
         pivot.SelectedIndex = index;
     }
 };
 
-GazeTargetItem^ GazeTargetItem.GetOrCreate(UIElement^ element)
+GazeTargetItem GazeTargetItem.GetOrCreate(UIElement element)
 {
-    GazeTargetItem^ item;
+    GazeTargetItem item;
 
-    auto value = element.ReadLocalValue(GazeTargetItemProperty);
+    var value = element.ReadLocalValue(GazeTargetItemProperty);
 
     if (value != DependencyProperty.UnsetValue)
     {
-        item = safe_cast<GazeTargetItem^>(value);
+        item = safe_cast<GazeTargetItem>(value);
     }
     else
     {
-        auto peer = FrameworkElementAutomationPeer.FromElement(element);
+        var peer = FrameworkElementAutomationPeer.FromElement(element);
 
-        if (peer == nullptr)
+        if (peer == null)
         {
-            if (dynamic_cast<PivotHeaderItem^>(element) != nullptr)
+            if (dynamic_cast<PivotHeaderItem>(element) != null)
             {
-                item = ref new PivotItemGazeTargetItem(element);
+                item = new PivotItemGazeTargetItem(element);
             }
             else
             {
@@ -193,23 +193,23 @@ GazeTargetItem^ GazeTargetItem.GetOrCreate(UIElement^ element)
         }
         else if (InvokePatternGazeTargetItem.IsCandidate(peer))
         {
-            item = ref new InvokePatternGazeTargetItem(element);
+            item = new InvokePatternGazeTargetItem(element);
         }
         else if (TogglePatternGazeTargetItem.IsCandidate(peer))
         {
-            item = ref new TogglePatternGazeTargetItem(element);
+            item = new TogglePatternGazeTargetItem(element);
         }
         else if (SelectionItemPatternGazeTargetItem.IsCandidate(peer))
         {
-            item = ref new SelectionItemPatternGazeTargetItem(element);
+            item = new SelectionItemPatternGazeTargetItem(element);
         }
         else if (ExpandCollapsePatternGazeTargetItem.IsCandidate(peer))
         {
-            item = ref new ExpandCollapsePatternGazeTargetItem(element);
+            item = new ExpandCollapsePatternGazeTargetItem(element);
         }
-        else if (dynamic_cast<ComboBoxItemAutomationPeer^>(peer) != nullptr)
+        else if (dynamic_cast<ComboBoxItemAutomationPeer>(peer) != null)
         {
-            item = ref new ComboBoxItemGazeTargetItem(element);
+            item = new ComboBoxItemGazeTargetItem(element);
         }
         else
         {
@@ -225,38 +225,38 @@ GazeTargetItem^ GazeTargetItem.GetOrCreate(UIElement^ element)
 void GazeTargetItem.RaiseProgressEvent(DwellProgressState state)
 {
     // TODO: We should eliminate non-invokable controls before we arrive here!
-    if (dynamic_cast<Page^>(TargetElement) != nullptr)
+    if (dynamic_cast<Page>(TargetElement) != null)
     {
         return;
     }
 
     if (_notifiedProgressState != state || state == DwellProgressState.Progressing)
     {
-        auto handled = false;
+        var handled = false;
 
-        auto gazeElement = GazeInput.GetGazeElement(TargetElement);
-        if (gazeElement != nullptr)
+        var gazeElement = GazeInput.GetGazeElement(TargetElement);
+        if (gazeElement != null)
         {
             handled = gazeElement.RaiseProgressFeedback(TargetElement, state, ElapsedTime - _prevStateTime, _nextStateTime - _prevStateTime);
         }
 
         if (!handled && state != DwellProgressState.Idle)
         {
-            if (_feedbackPopup == nullptr)
+            if (_feedbackPopup == null)
             {
                 _feedbackPopup = GazePointer.Instance._gazeFeedbackPopupFactory.Get();
             }
 
-            auto control = safe_cast<FrameworkElement^>(TargetElement);
+            var control = safe_cast<FrameworkElement>(TargetElement);
 
-            auto transform = control.TransformToVisual(_feedbackPopup);
-            auto bounds = transform.TransformBounds(*ref new Rect(*ref new Point(0, 0),
-                *ref new Size(safe_cast<float>(control.ActualWidth), safe_cast<float>(control.ActualHeight))));
-            auto rectangle = safe_cast<.Windows.UI.Xaml.Shapes.Rectangle^>(_feedbackPopup.Child);
+            var transform = control.TransformToVisual(_feedbackPopup);
+            var bounds = transform.TransformBounds(*new Rect(*new Point(0, 0),
+                *new Size(safe_cast<float>(control.ActualWidth), safe_cast<float>(control.ActualHeight))));
+            var rectangle = safe_cast<.Windows.UI.Xaml.Shapes.Rectangle>(_feedbackPopup.Child);
 
             if (state == DwellProgressState.Progressing)
             {
-                auto progress = ((double)(ElapsedTime - _prevStateTime).Duration) / (_nextStateTime - _prevStateTime).Duration;
+                var progress = ((double)(ElapsedTime - _prevStateTime).Duration) / (_nextStateTime - _prevStateTime).Duration;
 
                 if (0 <= progress && progress < 1)
                 {
@@ -283,10 +283,10 @@ void GazeTargetItem.RaiseProgressEvent(DwellProgressState state)
         }
         else
         {
-            if (_feedbackPopup != nullptr)
+            if (_feedbackPopup != null)
             {
                 GazePointer.Instance._gazeFeedbackPopupFactory.Return(_feedbackPopup);
-                _feedbackPopup = nullptr;
+                _feedbackPopup = null;
             }
         }
     }

@@ -9,7 +9,7 @@ ref class GazeTargetItem;
 
 private ref struct GazeHistoryItem
 {
-    property GazeTargetItem^ HitTarget;
+    property GazeTargetItem HitTarget;
     property TimeSpan Timestamp;
     property TimeSpan Duration;
 };
