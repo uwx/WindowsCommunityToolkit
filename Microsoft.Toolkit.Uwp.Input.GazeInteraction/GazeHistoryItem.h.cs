@@ -1,11 +1,9 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+using Windows.Foundation;
 
-using namespace Windows::Foundation;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 ref class GazeTargetItem;
 
@@ -16,4 +14,4 @@ private ref struct GazeHistoryItem
     property TimeSpan Duration;
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

@@ -1,16 +1,14 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 
-using namespace Windows::Foundation;
-using namespace Windows::Foundation::Collections;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 /// <summary>
 /// This struct encapsulates the location and timestamp associated with the user's gaze 
-/// and is used as an input and output parameter for the IGazeFilter::Update method
+/// and is used as an input and output parameter for the IGazeFilter.Update method
 /// </summary>
 private ref struct GazeFilterArgs sealed
 {
@@ -49,7 +47,7 @@ private interface class IGazeFilter
 
 // Basic filter which performs no input filtering -- easy to
 // use as a default filter.
-private ref class NullFilter sealed : public IGazeFilter
+private ref class NullFilter sealed : IGazeFilter
 {
 public:
     virtual inline GazeFilterArgs^ Update(GazeFilterArgs^ args)
@@ -63,4 +61,4 @@ public:
     }
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

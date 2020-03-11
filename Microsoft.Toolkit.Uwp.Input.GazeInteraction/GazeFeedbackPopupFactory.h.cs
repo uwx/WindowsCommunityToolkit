@@ -1,12 +1,10 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+//using Platform.Collections;
+using Windows.UI.Xaml.Controls.Primitives;
 
-using namespace Platform::Collections;
-using namespace Windows::UI::Xaml::Controls::Primitives;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 private ref class GazeFeedbackPopupFactory
 {
@@ -21,4 +19,4 @@ public:
     void Return(Popup^ popup);
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

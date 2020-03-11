@@ -1,25 +1,24 @@
 ﻿//Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
-
-#include <collection.h>
-#include <ppltasks.h>
+//#include <collection.h>
+//#include <ppltasks.h>
 
 //#define _USE_MATH_DEFINES
 //#include <math.h>
-#include <assert.h>
+//#include <assert.h>
 
 //#include <Windows.Input.Gaze.h>
 
-using namespace Windows::Foundation;
-using namespace Windows::Devices::Enumeration;
-using namespace Windows::Devices::HumanInterfaceDevice;
-using namespace Windows::UI::Core;
-using namespace Windows::UI::Xaml;
-using namespace Windows::UI::Xaml::Media;
-using namespace Windows::UI::Xaml::Shapes;
+using Windows.Foundation;
+using Windows.Devices.Enumeration;
+using Windows.Devices.HumanInterfaceDevice;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Shapes;
 
+/*
 #include <strsafe.h>
 private class Debug
 {
@@ -50,5 +49,4 @@ inline static TimeSpan TimeSpanFromMicroseconds(uint64 milliseconds) { return Ti
 inline static TimeSpan TimeSpanFromMicroseconds(int64 milliseconds) { return TimeSpan{ 10 * milliseconds }; }
 inline static TimeSpan TimeSpanFromMicroseconds(int milliseconds) { return TimeSpan{ 10 * milliseconds }; }
 
-#define BEGIN_NAMESPACE_GAZE_INPUT namespace Microsoft { namespace Toolkit { namespace Uwp { namespace Input { namespace GazeInteraction {
-#define END_NAMESPACE_GAZE_INPUT } } } } }
+*/

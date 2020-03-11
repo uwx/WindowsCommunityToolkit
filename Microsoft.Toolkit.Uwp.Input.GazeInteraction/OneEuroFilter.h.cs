@@ -1,14 +1,10 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 
-#include "IGazeFilter.h"
-
-using namespace Windows::Foundation;
-using namespace Windows::Foundation::Collections;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 const float ONEEUROFILTER_DEFAULT_BETA = 5.0f;
 const float ONEEUROFILTER_DEFAULT_CUTOFF = 0.1f;
@@ -39,7 +35,7 @@ public:
     }
 };
 
-private ref class OneEuroFilter sealed : public IGazeFilter
+private ref class OneEuroFilter sealed : IGazeFilter
 {
 public:
     OneEuroFilter();
@@ -62,4 +58,4 @@ private:
 
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

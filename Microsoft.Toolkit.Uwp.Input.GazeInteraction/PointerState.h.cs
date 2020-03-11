@@ -1,9 +1,7 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 /// <summary>
 /// This enum reflects the states that a user's gaze through while interacting with a control using their eyes.
@@ -45,4 +43,4 @@ public enum class PointerState
     DwellRepeat = 5
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

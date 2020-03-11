@@ -1,16 +1,12 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
-
-#include "DwellProgressState.h"
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 /// <summary>
 /// This parameter is passed to the GazeElement.DwellProgressFeedback event. The event is fired to inform the application of the user's progress towards completing dwelling on a control
 /// </summary>
-public ref class DwellProgressEventArgs : public RoutedEventArgs
+public class DwellProgressEventArgs : RoutedEventArgs
 {
 public:
 
@@ -40,4 +36,4 @@ private:
     double _progress;
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

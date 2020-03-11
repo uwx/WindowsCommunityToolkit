@@ -1,14 +1,12 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
-using namespace Windows::Foundation::Collections;
-using namespace Windows::UI;
-using namespace Windows::UI::Xaml::Controls;
-using namespace Windows::UI::Xaml::Controls::Primitives;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 private ref class GazeCursor sealed
 {
@@ -46,8 +44,8 @@ public:
         void set(Point value)
         {
             _cursorPosition = value;
-            _gazePopup->HorizontalOffset = value.X;
-            _gazePopup->VerticalOffset = value.Y;
+            _gazePopup.HorizontalOffset = value.X;
+            _gazePopup.VerticalOffset = value.Y;
             SetVisibility();
         }
     }
@@ -56,11 +54,11 @@ public:
 	{
 		UIElement^ get()
 		{
-			return _gazePopup->Child;
+			return _gazePopup.Child;
 		}
 		void set(UIElement^ value)
 		{
-			_gazePopup->Child = value;
+			_gazePopup.Child = value;
 		}
 	}
 
@@ -68,7 +66,7 @@ public:
 	{
 		FrameworkElement^ get()
 		{
-			return dynamic_cast<FrameworkElement^>(_gazePopup->Child);
+			return dynamic_cast<FrameworkElement^>(_gazePopup.Child);
 		}
 	}
 
@@ -86,4 +84,4 @@ private:
 
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

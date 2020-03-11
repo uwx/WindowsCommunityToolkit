@@ -1,9 +1,7 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 public ref struct GazeEventArgs sealed
 {
@@ -23,4 +21,4 @@ public ref struct GazeEventArgs sealed
     }
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

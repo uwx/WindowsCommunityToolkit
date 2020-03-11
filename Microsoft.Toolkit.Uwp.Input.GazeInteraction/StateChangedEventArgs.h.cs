@@ -1,13 +1,9 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+using Windows.UI.Xaml;
 
-#include "PointerState.h"
-
-using namespace Windows::UI::Xaml;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 /// <summary>
 /// This parameter is passed to the StateChanged event.
@@ -17,7 +13,7 @@ public ref struct StateChangedEventArgs sealed
     /// <summary>
     /// The state of user's gaze with respect to a control
     /// </summary>
-    property GazeInteraction::PointerState PointerState {GazeInteraction::PointerState get() { return _pointerState; }}
+    property GazeInteraction.PointerState PointerState {GazeInteraction.PointerState get() { return _pointerState; }}
 
     /// <summary>
     /// Elapsed time since the last state
@@ -26,7 +22,7 @@ public ref struct StateChangedEventArgs sealed
 
 internal:
 
-    StateChangedEventArgs(UIElement^ target, GazeInteraction::PointerState state, TimeSpan elapsedTime)
+    StateChangedEventArgs(UIElement^ target, GazeInteraction.PointerState state, TimeSpan elapsedTime)
     {
         _hitTarget = target;
         _pointerState = state;
@@ -35,8 +31,8 @@ internal:
 
 private:
     UIElement ^ _hitTarget;
-    GazeInteraction::PointerState _pointerState;
+    GazeInteraction.PointerState _pointerState;
     TimeSpan _elapsedTime;
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

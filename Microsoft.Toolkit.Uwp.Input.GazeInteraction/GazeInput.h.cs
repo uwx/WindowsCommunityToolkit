@@ -1,15 +1,11 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-#include "Interaction.h"
-
-using namespace Windows::Foundation::Collections;
-using namespace Windows::UI::Xaml;
-using namespace Windows::UI::Xaml::Controls;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 ref class GazeElement;
 ref class GazePointer;
@@ -17,8 +13,8 @@ ref class GazePointer;
 /// <summary>
 /// Static class primarily providing access to attached properties controlling gaze behavior.
 /// </summary>
-[Windows::Foundation::Metadata::WebHostHidden]
-public ref class GazeInput sealed
+[Windows.Foundation.Metadata.WebHostHidden]
+public class GazeInput sealed
 {
 public:
 
@@ -100,12 +96,12 @@ public:
     /// <summary>
     /// Gets or sets the interaction default
     /// </summary>
-    static property GazeInteraction::Interaction Interaction { GazeInteraction::Interaction get(); void set(GazeInteraction::Interaction value); }
+    static property GazeInteraction.Interaction Interaction { GazeInteraction.Interaction get(); void set(GazeInteraction.Interaction value); }
 
     /// <summary>
     /// Gets the status of gaze interaction over that particular XAML element.
     /// </summary>
-    static GazeInteraction::Interaction GetInteraction(UIElement^ element);
+    static GazeInteraction.Interaction GetInteraction(UIElement^ element);
 
     /// <summary>
     /// Gets Boolean indicating whether cursor is shown while user is looking at the school.
@@ -160,7 +156,7 @@ public:
     /// <summary>
     /// Sets the status of gaze interaction over that particular XAML element.
     /// </summary>
-    static void SetInteraction(UIElement^ element, GazeInteraction::Interaction value);
+    static void SetInteraction(UIElement^ element, GazeInteraction.Interaction value);
     
     /// <summary>
     /// Sets Boolean indicating whether cursor is shown while user is looking at the school.
@@ -248,4 +244,4 @@ internal:
     static TimeSpan UnsetTimeSpan;
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

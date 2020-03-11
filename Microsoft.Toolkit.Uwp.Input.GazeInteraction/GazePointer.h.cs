@@ -1,20 +1,10 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+using Windows.Devices.Input.Preview;
+using Windows.Foundation;
 
-#include "GazeCursor.h"
-#include "GazeFeedbackPopupFactory.h"
-#include "GazeEventArgs.h"
-#include "IGazeFilter.h"
-#include "Interaction.h"
-#include "PointerState.h"
-
-using namespace Platform::Collections;
-using namespace Windows::Devices::Input::Preview;
-using namespace Windows::Foundation;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 ref class GazeTargetItem;
 ref struct GazeHistoryItem;
@@ -22,7 +12,7 @@ ref struct GazeHistoryItem;
 /// <summary>
 /// Class of singleton object coordinating gaze input.
 /// </summary>
-public ref class GazePointer sealed
+public class GazePointer sealed
 {
 private:
 
@@ -67,8 +57,8 @@ public:
 	/// </summary>
 	property UIElement^ CursorElement
 	{
-		UIElement^ get() { return _gazeCursor->PopupChild; }
-		void set(UIElement^ value) { _gazeCursor->PopupChild = value; }
+		UIElement^ get() { return _gazeCursor.PopupChild; }
+		void set(UIElement^ value) { _gazeCursor.PopupChild = value; }
 	}
 
 private:
@@ -80,13 +70,13 @@ private:
 internal:
     Brush^ _enterBrush = nullptr;
 
-    Brush^ _progressBrush = ref new SolidColorBrush(Colors::Green);
+    Brush^ _progressBrush = ref new SolidColorBrush(Colors.Green);
 
-    Brush^ _completeBrush = ref new SolidColorBrush(Colors::Red);
+    Brush^ _completeBrush = ref new SolidColorBrush(Colors.Red);
 
     double _dwellStrokeThickness = 2;
 
-    Interaction _interaction = Interaction::Disabled;
+    Interaction _interaction = Interaction.Disabled;
 
     GazeTargetItem^ _nonInvokeGazeTargetItem;
 
@@ -110,7 +100,7 @@ internal:
 
             // convert GAZE_IDLE_TIME units (microseconds) to 100-nanosecond units used
             // by TimeSpan struct
-            _eyesOffTimer->Interval = EyesOffDelay;
+            _eyesOffTimer.Interval = EyesOffDelay;
         }
     }
 
@@ -120,14 +110,14 @@ internal:
 
     property bool IsCursorVisible
     {
-        bool get() { return _gazeCursor->IsCursorVisible; }
-        void set(bool value) { _gazeCursor->IsCursorVisible = value; }
+        bool get() { return _gazeCursor.IsCursorVisible; }
+        void set(bool value) { _gazeCursor.IsCursorVisible = value; }
     }
 
     property int CursorRadius
     {
-        int get() { return _gazeCursor->CursorRadius; }
-        void set(int value) { _gazeCursor->CursorRadius = value; }
+        int get() { return _gazeCursor.CursorRadius; }
+        void set(int value) { _gazeCursor.CursorRadius = value; }
     }
 
     property bool IsSwitchEnabled
@@ -153,7 +143,7 @@ internal:
     void RemoveRoot(int proxyId);
 
 
-    property bool IsDeviceAvailable { bool get() { return _devices->Size != 0; }}
+    property bool IsDeviceAvailable { bool get() { return _devices.Size != 0; }}
     event EventHandler<Object^>^ IsDeviceAvailableChanged;
 
 private:
@@ -240,4 +230,4 @@ private:
     GazeTargetItem^                     _currentlyFixatedElement;
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

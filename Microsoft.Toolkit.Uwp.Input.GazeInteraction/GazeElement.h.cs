@@ -1,21 +1,15 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+using Windows.Foundation;
+using Windows.UI.Xaml;
 
-#include "DwellInvokedRoutedEventArgs.h"
-#include "DwellProgressEventArgs.h"
-#include "StateChangedEventArgs.h"
-
-using namespace Windows::Foundation;
-using namespace Windows::UI::Xaml;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 /// <summary>
 /// Surrogate object attached to controls allowing subscription to per-control gaze events.
 /// </summary>
-public ref class GazeElement sealed : public DependencyObject
+public class GazeElement sealed : DependencyObject
 {
 public:
 
@@ -47,8 +41,8 @@ internal:
     {
         auto args = ref new DwellProgressEventArgs(state, elapsedTime, triggerTime);
         DwellProgressFeedback(sender, args);
-        return args->Handled;
+        return args.Handled;
     }
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

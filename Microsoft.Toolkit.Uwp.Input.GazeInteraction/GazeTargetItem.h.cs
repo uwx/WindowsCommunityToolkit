@@ -1,17 +1,11 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+using Windows.Foundation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls.Primitives;
 
-#include "DwellProgressState.h"
-#include "GazeInput.h"
-#include "PointerState.h"
-
-using namespace Windows::Foundation;
-using namespace Windows::UI::Xaml;
-using namespace Windows::UI::Xaml::Controls::Primitives;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 private ref class GazeTargetItem abstract
 {
@@ -39,12 +33,12 @@ internal:
 
     void Reset(TimeSpan nextStateTime)
     {
-        ElementState = PointerState::PreEnter;
+        ElementState = PointerState.PreEnter;
         DetailedTime = TimeSpanZero;
         OverflowTime = TimeSpanZero;
         NextStateTime = nextStateTime;
         RepeatCount = 0;
-        MaxDwellRepeatCount = GazeInput::GetMaxDwellRepeatCount(TargetElement);
+        MaxDwellRepeatCount = GazeInput.GetMaxDwellRepeatCount(TargetElement);
     }
 
     void GiveFeedback()
@@ -59,32 +53,32 @@ internal:
         {
             switch (ElementState)
             {
-            case PointerState::Enter:
-                RaiseProgressEvent(DwellProgressState::Fixating);
+            case PointerState.Enter:
+                RaiseProgressEvent(DwellProgressState.Fixating);
                 break;
 
-            case PointerState::Dwell:
-            case PointerState::Fixation:
-                RaiseProgressEvent(DwellProgressState::Progressing);
+            case PointerState.Dwell:
+            case PointerState.Fixation:
+                RaiseProgressEvent(DwellProgressState.Progressing);
                 break;
 
-            case PointerState::Exit:
-            case PointerState::PreEnter:
-                RaiseProgressEvent(DwellProgressState::Idle);
+            case PointerState.Exit:
+            case PointerState.PreEnter:
+                RaiseProgressEvent(DwellProgressState.Idle);
                 break;
             }
 
             _notifiedPointerState = ElementState;
         }
-        else if (ElementState == PointerState::Dwell || ElementState == PointerState::Fixation)
+        else if (ElementState == PointerState.Dwell || ElementState == PointerState.Fixation)
         {
             if (RepeatCount <= MaxDwellRepeatCount)
             {
-                RaiseProgressEvent(DwellProgressState::Progressing);
+                RaiseProgressEvent(DwellProgressState.Progressing);
             }
             else
             {
-                RaiseProgressEvent(DwellProgressState::Complete);
+                RaiseProgressEvent(DwellProgressState.Complete);
             }
         }
     }
@@ -93,11 +87,11 @@ private:
 
     void RaiseProgressEvent(DwellProgressState state);
 
-    PointerState _notifiedPointerState = PointerState::Exit;
+    PointerState _notifiedPointerState = PointerState.Exit;
     TimeSpan _prevStateTime;
     TimeSpan _nextStateTime;
-    DwellProgressState _notifiedProgressState = DwellProgressState::Idle;
+    DwellProgressState _notifiedProgressState = DwellProgressState.Idle;
     Popup^ _feedbackPopup;
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

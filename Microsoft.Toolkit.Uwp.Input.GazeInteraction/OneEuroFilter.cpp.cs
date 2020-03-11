@@ -1,17 +1,14 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#include "pch.h"
-#include "OneEuroFilter.h"
-
 //
 // http://www.lifl.fr/~casiez/1euro/
 // http://www.lifl.fr/~casiez/publications/CHI2012-casiez.pdf
 //
 
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
-OneEuroFilter::OneEuroFilter()
+OneEuroFilter.OneEuroFilter()
 {
 
     _lastTimestamp = TimeSpanZero;
@@ -20,7 +17,7 @@ OneEuroFilter::OneEuroFilter()
     VelocityCutoff = ONEEUROFILTER_DEFAULT_VELOCITY_CUTOFF;
 }
 
-OneEuroFilter::OneEuroFilter(float cutoff, float beta)
+OneEuroFilter.OneEuroFilter(float cutoff, float beta)
 {
     _lastTimestamp = TimeSpanZero;
     Beta = beta;
@@ -28,17 +25,17 @@ OneEuroFilter::OneEuroFilter(float cutoff, float beta)
     VelocityCutoff = ONEEUROFILTER_DEFAULT_VELOCITY_CUTOFF;
 }
 
-GazeFilterArgs^ OneEuroFilter::Update(GazeFilterArgs^ args)
+GazeFilterArgs^ OneEuroFilter.Update(GazeFilterArgs^ args)
 {
     if (_lastTimestamp == TimeSpanZero)
     {
-        _lastTimestamp = args->Timestamp;
-        _pointFilter = ref new LowpassFilter(args->Location);
+        _lastTimestamp = args.Timestamp;
+        _pointFilter = ref new LowpassFilter(args.Location);
         _deltaFilter = ref new LowpassFilter(Point());
-        return ref new GazeFilterArgs(args->Location, args->Timestamp);
+        return ref new GazeFilterArgs(args.Location, args.Timestamp);
     }
 
-    Point gazePoint = args->Location;
+    Point gazePoint = args.Location;
 
     // Reducing _beta increases lag. Increasing beta decreases lag and improves response time
     // But a really high value of beta also contributes to jitter
@@ -50,13 +47,13 @@ GazeFilterArgs^ OneEuroFilter::Update(GazeFilterArgs^ args)
     Point cutoff = Point(cf, cf);
 
     // determine sampling frequency based on last time stamp
-    float samplingFrequency = 10000000.0f / max(1, (args->Timestamp - _lastTimestamp).Duration);
-    _lastTimestamp = args->Timestamp;
+    float samplingFrequency = 10000000.0f / max(1, (args.Timestamp - _lastTimestamp).Duration);
+    _lastTimestamp = args.Timestamp;
 
     // calculate change in distance...
     Point deltaDistance;
-    deltaDistance.X = gazePoint.X - _pointFilter->Previous.X;
-    deltaDistance.Y = gazePoint.Y - _pointFilter->Previous.Y;
+    deltaDistance.X = gazePoint.X - _pointFilter.Previous.X;
+    deltaDistance.Y = gazePoint.Y - _pointFilter.Previous.Y;
 
     // ...and velocity
     Point velocity(deltaDistance.X * samplingFrequency, deltaDistance.Y * samplingFrequency);
@@ -66,7 +63,7 @@ GazeFilterArgs^ OneEuroFilter::Update(GazeFilterArgs^ args)
     Point velocityAlphaPoint(velocityAlpha, velocityAlpha);
 
     // find the filtered velocity
-    Point filteredVelocity = _deltaFilter->Update(velocity, velocityAlphaPoint);
+    Point filteredVelocity = _deltaFilter.Update(velocity, velocityAlphaPoint);
 
     // ignore sign since it will be taken care of by deltaDistance
     filteredVelocity.X = abs(filteredVelocity.X);
@@ -80,14 +77,14 @@ GazeFilterArgs^ OneEuroFilter::Update(GazeFilterArgs^ args)
     Point distanceAlpha(Alpha(samplingFrequency, cutoff.X), Alpha(samplingFrequency, cutoff.Y));
 
     // find the filtered point
-    Point filteredPoint = _pointFilter->Update(gazePoint, distanceAlpha);
+    Point filteredPoint = _pointFilter.Update(gazePoint, distanceAlpha);
 
     // compute the new args
-    auto fa = ref new GazeFilterArgs(filteredPoint, args->Timestamp);
+    auto fa = ref new GazeFilterArgs(filteredPoint, args.Timestamp);
     return fa;
 }
 
-float OneEuroFilter::Alpha(float rate, float cutoff)
+float OneEuroFilter.Alpha(float rate, float cutoff)
 {
     const float PI = 3.14159265f;
     float  te = 1.0f / rate;
@@ -95,20 +92,20 @@ float OneEuroFilter::Alpha(float rate, float cutoff)
     float alpha = te / (te + tau);
     return alpha;
 }
-void OneEuroFilter::LoadSettings(ValueSet^ settings)
+void OneEuroFilter.LoadSettings(ValueSet^ settings)
 {
-    if (settings->HasKey("OneEuroFilter.Beta"))
+    if (settings.HasKey("OneEuroFilter.Beta"))
     {
-        Beta = (float)(settings->Lookup("OneEuroFilter.Beta"));
+        Beta = (float)(settings.Lookup("OneEuroFilter.Beta"));
     }
-    if (settings->HasKey("OneEuroFilter.Cutoff"))
+    if (settings.HasKey("OneEuroFilter.Cutoff"))
     {
-        Cutoff = (float)(settings->Lookup("OneEuroFilter.Cutoff"));
+        Cutoff = (float)(settings.Lookup("OneEuroFilter.Cutoff"));
     }
-    if (settings->HasKey("OneEuroFilter.VelocityCutoff"))
+    if (settings.HasKey("OneEuroFilter.VelocityCutoff"))
     {
-        VelocityCutoff = (float)(settings->Lookup("OneEuroFilter.VelocityCutoff"));
+        VelocityCutoff = (float)(settings.Lookup("OneEuroFilter.VelocityCutoff"));
     }
 }
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

@@ -1,13 +1,9 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
-using namespace Platform::Collections;
-
-BEGIN_NAMESPACE_GAZE_INPUT
-
-public ref class GazeStats sealed
+public class GazeStats sealed
 {
 public:
     GazeStats(int maxHistoryLen);
@@ -18,7 +14,7 @@ public:
     {
         Point get()
         {
-            UINT count = _history->Size;
+            UINT count = _history.Size;
             return Point((float)_sumX / count, (float)_sumY / count);
         }
     }
@@ -30,7 +26,7 @@ public:
     {
         Point get()
         {
-            UINT count = _history->Size;
+            UINT count = _history.Size;
             if (count < _maxHistoryLen)
             {
                 return Point(0.0f, 0.0f);
@@ -52,4 +48,4 @@ private:
     Vector<Point>^  _history;
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

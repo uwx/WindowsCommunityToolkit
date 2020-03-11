@@ -1,9 +1,7 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 /// <summary>
 /// An enum that reflects the current state of progress towards dwell when a user is focused on a control
@@ -31,4 +29,4 @@ public enum class DwellProgressState
     Complete
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

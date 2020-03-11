@@ -1,17 +1,13 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
+using Windows.Devices.HumanInterfaceDevice;
+using Windows.Devices.Input.Preview;
 
-#include "GazeHidUsages.h"
-
-using namespace Windows::Devices::HumanInterfaceDevice;
-using namespace Windows::Devices::Input::Preview;
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 namespace GazeHidParsers {
-    public ref class GazeHidPosition sealed
+    public class GazeHidPosition sealed
     {
     public:
         property long long X;
@@ -19,7 +15,7 @@ namespace GazeHidParsers {
         property long long Z;
     };
 
-    public ref class GazeHidPositions sealed
+    public class GazeHidPositions sealed
     {
     public:
         property GazeHidPosition^ LeftEyePosition;
@@ -28,7 +24,7 @@ namespace GazeHidParsers {
         property GazeHidPosition^ HeadRotation;
     };
 
-    public ref class GazeHidPositionParser sealed
+    public class GazeHidPositionParser sealed
     {
     public:
         GazeHidPositionParser(GazeDevicePreview ^ gazeDevice, uint16 usage);
@@ -42,7 +38,7 @@ namespace GazeHidParsers {
         uint16 _usage                     = 0x0000;
     };
 
-    public ref class GazeHidRotationParser sealed
+    public class GazeHidRotationParser sealed
     {
     public:
         GazeHidRotationParser(GazeDevicePreview ^ gazeDevice, uint16 usage);
@@ -56,7 +52,7 @@ namespace GazeHidParsers {
         uint16 _usage                     = 0x0000;
     };
 
-    public ref class GazeHidPositionsParser sealed
+    public class GazeHidPositionsParser sealed
     {
     public:
         GazeHidPositionsParser(GazeDevicePreview ^ gazeDevice);
@@ -71,4 +67,4 @@ namespace GazeHidParsers {
     };
 }
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

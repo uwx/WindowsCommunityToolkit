@@ -1,9 +1,7 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 /// <summary>
 /// This enum specifies the various HID usages specified by the EyeHeadTracker HID specification
@@ -56,4 +54,4 @@ public enum class GazeHidUsages
     // 0x0401-0xFFFF                    RESERVED
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

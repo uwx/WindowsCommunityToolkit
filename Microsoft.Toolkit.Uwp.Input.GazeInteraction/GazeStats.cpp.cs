@@ -1,37 +1,32 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#include "pch.h"
-#include "GazeStats.h"
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
-using namespace Platform::Collections;
-
-BEGIN_NAMESPACE_GAZE_INPUT
-
-GazeStats::GazeStats(int maxHistoryLen)
+GazeStats.GazeStats(int maxHistoryLen)
 {
     _maxHistoryLen = maxHistoryLen;
     _history = ref new Vector<Point>();
 }
 
-void GazeStats::Reset()
+void GazeStats.Reset()
 {
     _sumX = 0;
     _sumY = 0;
     _sumSquaredX = 0;
     _sumSquaredY = 0;
-    _history->Clear();
+    _history.Clear();
 }
 
-void GazeStats::Update(float x, float y)
+void GazeStats.Update(float x, float y)
 {
     Point pt(x, y);
-    _history->Append(pt);
+    _history.Append(pt);
 
-    if (_history->Size > _maxHistoryLen)
+    if (_history.Size > _maxHistoryLen)
     {
-        auto oldest = _history->GetAt(0);
-        _history->RemoveAt(0);
+        auto oldest = _history.GetAt(0);
+        _history.RemoveAt(0);
             
         _sumX -= oldest.X;
         _sumY -= oldest.Y;
@@ -44,4 +39,4 @@ void GazeStats::Update(float x, float y)
     _sumSquaredY += y * y;
 }
 
-END_NAMESPACE_GAZE_INPUT
+*/ }

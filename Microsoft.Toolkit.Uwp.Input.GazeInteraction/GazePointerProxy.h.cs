@@ -1,11 +1,7 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-#pragma once
-
-#include "Interaction.h"
-
-BEGIN_NAMESPACE_GAZE_INPUT
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 
 /// <summary>
 /// Helper class that helps track which UIElements in the visual tree are enabled.
@@ -77,6 +73,6 @@ private:
     bool _isEnabled;
 };
 
-END_NAMESPACE_GAZE_INPUT
+*/ }
 
 
