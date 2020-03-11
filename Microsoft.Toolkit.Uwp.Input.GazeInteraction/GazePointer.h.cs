@@ -4,16 +4,15 @@
 using Windows.Devices.Input.Preview;
 using Windows.Foundation;
 
-namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
-
-ref class GazeTargetItem;
-ref struct GazeHistoryItem;
-
-/// <summary>
-/// Class of singleton object coordinating gaze input.
-/// </summary>
-public class GazePointer sealed
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
+
+    /// <summary>
+    /// Class of singleton object coordinating gaze input.
+    /// </summary>
+    public sealed class GazePointer
+    {
+        /*
 private:
 
     // units in microseconds
@@ -228,6 +227,6 @@ private:
     bool                                _isAlwaysActivated;
     bool                                _isSwitchEnabled;
     GazeTargetItem                     _currentlyFixatedElement;
-};
-
-*/ }
+*/
+    }
+}

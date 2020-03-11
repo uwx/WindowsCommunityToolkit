@@ -11,7 +11,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 /// two conditions for enablement: that attached property is Enabled; that the UIElement
 /// is in the visual tree.
 /// </summary>
-private ref class GazePointerProxy sealed
+internal class GazePointerProxy sealed
 {
 public:
 

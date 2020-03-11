@@ -1,24 +1,27 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
+using System;
+using Windows.Foundation;
 
-public ref struct GazeEventArgs sealed
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-    property bool Handled;
-    property Point Location;
-    property TimeSpan Timestamp;
 
-    GazeEventArgs()
+    public sealed class GazeEventArgs
     {
-    }
+        public bool Handled { get; set; }
+        public Point Location { get; set; }
+        public TimeSpan Timestamp { get; set; }
 
-    void Set(Point location, TimeSpan timestamp)
-    {
-        Handled = false;
-        Location = location;
-        Timestamp = timestamp;
-    }
-};
+        public GazeEventArgs()
+        {
+        }
 
-*/ }
+        public void Set(Point location, TimeSpan timestamp)
+        {
+            Handled = false;
+            Location = location;
+            Timestamp = timestamp;
+        }
+    }
+}

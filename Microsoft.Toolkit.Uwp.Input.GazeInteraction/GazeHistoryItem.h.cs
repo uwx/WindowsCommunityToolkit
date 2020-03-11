@@ -1,17 +1,16 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
+using System;
 using Windows.Foundation;
 
-namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
-
-ref class GazeTargetItem;
-
-private ref struct GazeHistoryItem
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-    property GazeTargetItem HitTarget;
-    property TimeSpan Timestamp;
-    property TimeSpan Duration;
-};
 
-*/ }
+    internal struct GazeHistoryItem
+    {
+        public GazeTargetItem HitTarget { get; set; }
+        public TimeSpan Timestamp { get; set; }
+        public TimeSpan Duration { get; set; }
+    }
+}

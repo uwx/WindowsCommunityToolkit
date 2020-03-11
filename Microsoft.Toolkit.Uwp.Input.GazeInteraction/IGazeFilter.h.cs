@@ -47,7 +47,7 @@ private interface class IGazeFilter
 
 // Basic filter which performs no input filtering -- easy to
 // use as a default filter.
-private ref class NullFilter sealed : IGazeFilter
+internal class NullFilter sealed : IGazeFilter
 {
 public:
     virtual inline GazeFilterArgs Update(GazeFilterArgs args)

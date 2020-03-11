@@ -1,97 +1,101 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
+using System;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
 
-namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
-
-private ref class GazeTargetItem abstract
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-internal:
-    property TimeSpan DetailedTime;
-    property TimeSpan OverflowTime;
-    property TimeSpan ElapsedTime { TimeSpan get() { return DetailedTime + OverflowTime; } }
-    property TimeSpan NextStateTime;
-    property TimeSpan LastTimestamp;
-    property PointerState ElementState;
-    property UIElement TargetElement;
-    property int RepeatCount;
-    property int MaxDwellRepeatCount;
 
-    GazeTargetItem(UIElement target)
+    internal abstract class GazeTargetItem
     {
-        TargetElement = target;
-    }
-
-    static GazeTargetItem GetOrCreate(UIElement element);
-
-    virtual void Invoke() = 0;
-
-    virtual property bool IsInvokable { bool get() { return true; } }
-
-    void Reset(TimeSpan nextStateTime)
-    {
-        ElementState = PointerState.PreEnter;
-        DetailedTime = TimeSpanZero;
-        OverflowTime = TimeSpanZero;
-        NextStateTime = nextStateTime;
-        RepeatCount = 0;
-        MaxDwellRepeatCount = GazeInput.GetMaxDwellRepeatCount(TargetElement);
-    }
-
-    void GiveFeedback()
-    {
-        if (_nextStateTime != NextStateTime)
+        internal TimeSpan DetailedTime { get; set; }
+        internal TimeSpan OverflowTime { get; set; }
+        internal TimeSpan ElapsedTime
         {
-            _prevStateTime = _nextStateTime;
-            _nextStateTime = NextStateTime;
+            get { return DetailedTime + OverflowTime; }
+        }
+        internal TimeSpan NextStateTime { get; set; }
+        internal TimeSpan LastTimestamp { get; set; }
+        internal PointerState ElementState { get; set; }
+        internal UIElement TargetElement { get; set; }
+        internal int RepeatCount { get; set; }
+        internal int MaxDwellRepeatCount { get; set; }
+
+        internal GazeTargetItem(UIElement target)
+        {
+            TargetElement = target;
         }
 
-        if (ElementState != _notifiedPointerState)
+        internal static GazeTargetItem GetOrCreate(UIElement element) { throw new ToDoException(); }
+
+        internal abstract void Invoke();
+
+        internal virtual bool IsInvokable
         {
-            switch (ElementState)
-            {
-            case PointerState.Enter:
-                RaiseProgressEvent(DwellProgressState.Fixating);
-                break;
-
-            case PointerState.Dwell:
-            case PointerState.Fixation:
-                RaiseProgressEvent(DwellProgressState.Progressing);
-                break;
-
-            case PointerState.Exit:
-            case PointerState.PreEnter:
-                RaiseProgressEvent(DwellProgressState.Idle);
-                break;
-            }
-
-            _notifiedPointerState = ElementState;
+            get { return true; }
         }
-        else if (ElementState == PointerState.Dwell || ElementState == PointerState.Fixation)
+
+        internal void Reset(TimeSpan nextStateTime)
         {
-            if (RepeatCount <= MaxDwellRepeatCount)
+            ElementState = PointerState.PreEnter;
+            DetailedTime = TimeSpan.Zero;
+            OverflowTime = TimeSpan.Zero;
+            NextStateTime = nextStateTime;
+            RepeatCount = 0;
+            MaxDwellRepeatCount = GazeInput.GetMaxDwellRepeatCount(TargetElement);
+        }
+
+        internal void GiveFeedback()
+        {
+            if (_nextStateTime != NextStateTime)
             {
-                RaiseProgressEvent(DwellProgressState.Progressing);
+                _prevStateTime = _nextStateTime;
+                _nextStateTime = NextStateTime;
             }
-            else
+
+            if (ElementState != _notifiedPointerState)
             {
-                RaiseProgressEvent(DwellProgressState.Complete);
+                switch (ElementState)
+                {
+                    case PointerState.Enter:
+                        RaiseProgressEvent(DwellProgressState.Fixating);
+                        break;
+
+                    case PointerState.Dwell:
+                    case PointerState.Fixation:
+                        RaiseProgressEvent(DwellProgressState.Progressing);
+                        break;
+
+                    case PointerState.Exit:
+                    case PointerState.PreEnter:
+                        RaiseProgressEvent(DwellProgressState.Idle);
+                        break;
+                }
+
+                _notifiedPointerState = ElementState;
+            }
+            else if (ElementState == PointerState.Dwell || ElementState == PointerState.Fixation)
+            {
+                if (RepeatCount <= MaxDwellRepeatCount)
+                {
+                    RaiseProgressEvent(DwellProgressState.Progressing);
+                }
+                else
+                {
+                    RaiseProgressEvent(DwellProgressState.Complete);
+                }
             }
         }
+
+        private void RaiseProgressEvent(DwellProgressState state) { throw new ToDoException(); }
+
+        private PointerState _notifiedPointerState = PointerState.Exit;
+        private TimeSpan _prevStateTime;
+        private TimeSpan _nextStateTime;
+        private DwellProgressState _notifiedProgressState = DwellProgressState.Idle;
+        private Popup _feedbackPopup;
     }
-
-private:
-
-    void RaiseProgressEvent(DwellProgressState state);
-
-    PointerState _notifiedPointerState = PointerState.Exit;
-    TimeSpan _prevStateTime;
-    TimeSpan _nextStateTime;
-    DwellProgressState _notifiedProgressState = DwellProgressState.Idle;
-    Popup _feedbackPopup;
-};
-
-*/ }
+}
