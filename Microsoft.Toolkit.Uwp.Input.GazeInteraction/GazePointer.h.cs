@@ -1,8 +1,16 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Input.Preview;
 using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
@@ -12,221 +20,209 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
     /// </summary>
     public sealed class GazePointer
     {
-        /*
-private:
+        // units in microseconds
+        private static TimeSpan DEFAULT_FIXATION_DELAY = TimeSpan.FromMilliseconds(350);
+        private static TimeSpan DEFAULT_DWELL_DELAY = TimeSpan.FromMilliseconds(400);
+        private static TimeSpan DEFAULT_DWELL_REPEAT_DELAY = TimeSpan.FromMilliseconds(400);
+        private static TimeSpan DEFAULT_REPEAT_DELAY = TimeSpan.FromMilliseconds(400);
+        private static TimeSpan DEFAULT_THRESHOLD_DELAY = TimeSpan.FromMilliseconds(50);
+        private static TimeSpan DEFAULT_MAX_HISTORY_DURATION = TimeSpan.FromMilliseconds(3000);
+        private static TimeSpan MAX_SINGLE_SAMPLE_DURATION = TimeSpan.FromMilliseconds(100);
 
-    // units in microseconds
-    const TimeSpan DEFAULT_FIXATION_DELAY = TimeSpanFromMicroseconds(350000);
-    const TimeSpan DEFAULT_DWELL_DELAY = TimeSpanFromMicroseconds(400000);
-    const TimeSpan DEFAULT_DWELL_REPEAT_DELAY = TimeSpanFromMicroseconds(400000);
-    const TimeSpan DEFAULT_REPEAT_DELAY = TimeSpanFromMicroseconds(400000);
-    const TimeSpan DEFAULT_THRESHOLD_DELAY = TimeSpanFromMicroseconds(50000);
-    const TimeSpan DEFAULT_MAX_HISTORY_DURATION = TimeSpanFromMicroseconds(3000000);
-    const TimeSpan MAX_SINGLE_SAMPLE_DURATION = TimeSpanFromMicroseconds(100000);
+        private static TimeSpan GAZE_IDLE_TIME = TimeSpan.FromSeconds(2.5);
 
-    const TimeSpan GAZE_IDLE_TIME{ 25000000 };
+        ~GazePointer() { throw new ToDoException(); }
 
-public:
-    virtual ~GazePointer();
+        /// <summary>
+        /// Loads a settings collection into GazePointer.
+        /// </summary>
+        public void LoadSettings(ValueSet settings) { throw new ToDoException(); }
 
-    /// <summary>
-    /// Loads a settings collection into GazePointer.
-    /// </summary>
-    void LoadSettings(ValueSet settings);
+        /// <summary>
+        /// When in switch mode, will issue a click on the currently fixated element
+        /// </summary>
+        public void Click() { throw new ToDoException(); }
 
-    /// <summary>
-    /// When in switch mode, will issue a click on the currently fixated element
-    /// </summary>
-    void Click();
+        /// <summary>
+        /// Run device calibration.
+        /// </summary>
+        public IAsyncOperation<bool> RequestCalibrationAsync() { throw new ToDoException(); }
 
-    /// <summary>
-    /// Run device calibration.
-    /// </summary>
-    IAsyncOperation<bool> RequestCalibrationAsync();
-
-    event EventHandler<GazeEventArgs> GazeEvent
-    {
-        EventRegistrationToken add(EventHandler<GazeEventArgs> handler);
-        void remove(EventRegistrationToken token);
-        void raise(Object sender, GazeEventArgs e);
-    }
-
-	/// <summary>
-	/// The UIElement representing the cursor.
-	/// </summary>
-	property UIElement CursorElement
-	{
-		UIElement get() { return _gazeCursor.PopupChild; }
-		void set(UIElement value) { _gazeCursor.PopupChild = value; }
-	}
-
-private:
-
-    event EventHandler<GazeEventArgs> _gazeEvent;
-    GazeEventArgs const _gazeEventArgs = new GazeEventArgs();
-    int _gazeEventCount = 0;
-
-internal:
-    Brush _enterBrush = null;
-
-    Brush _progressBrush = new SolidColorBrush(Colors.Green);
-
-    Brush _completeBrush = new SolidColorBrush(Colors.Red);
-
-    double _dwellStrokeThickness = 2;
-
-    Interaction _interaction = Interaction.Disabled;
-
-    GazeTargetItem _nonInvokeGazeTargetItem;
-
-    GazeFeedbackPopupFactory _gazeFeedbackPopupFactory = new GazeFeedbackPopupFactory();
-
-internal:
-    void Reset();
-    void SetElementStateDelay(UIElement element, PointerState pointerState, TimeSpan stateDelay);
-    TimeSpan GetElementStateDelay(UIElement element, DependencyProperty property, TimeSpan defaultValue);
-    TimeSpan GetElementStateDelay(UIElement element, PointerState pointerState);
-
-    // Provide a configurable delay for when the EyesOffDelay event is fired
-    // GOTCHA: this value requires that _eyesOffTimer is instantiated so that it
-    // can update the timer interval 
-    property TimeSpan EyesOffDelay
-    {
-        TimeSpan get() { return _eyesOffDelay; }
-        void set(TimeSpan value)
+        public event EventHandler<GazeEventArgs> GazeEvent
         {
-            _eyesOffDelay = value;
-
-            // convert GAZE_IDLE_TIME units (microseconds) to 100-nanosecond units used
-            // by TimeSpan struct
-            _eyesOffTimer.Interval = EyesOffDelay;
+            add { throw new ToDoException(); }
+            remove { throw new ToDoException(); }
+            //raise(Object sender, GazeEventArgs e);
         }
-    }
 
-    // Pluggable filter for eye tracking sample data. This defaults to being set to the
-    // NullFilter which performs no filtering of input samples.
-    property IGazeFilter Filter;
+        /// <summary>
+        /// The UIElement representing the cursor.
+        /// </summary>
+        public UIElement CursorElement
+        {
+            get { return _gazeCursor.PopupChild; }
+            set { _gazeCursor.PopupChild = value; }
+        }
 
-    property bool IsCursorVisible
-    {
-        bool get() { return _gazeCursor.IsCursorVisible; }
-        void set(bool value) { _gazeCursor.IsCursorVisible = value; }
-    }
+        private event EventHandler<GazeEventArgs> _gazeEvent;
+        private readonly GazeEventArgs _gazeEventArgs = new GazeEventArgs();
+        private int _gazeEventCount = 0;
 
-    property int CursorRadius
-    {
-        int get() { return _gazeCursor.CursorRadius; }
-        void set(int value) { _gazeCursor.CursorRadius = value; }
-    }
+        internal Brush _enterBrush = null;
 
-    property bool IsSwitchEnabled
-    {
-        bool get() { return _isSwitchEnabled; }
-        void set(bool value) { _isSwitchEnabled = value; }
-    }
+        internal Brush _progressBrush = new SolidColorBrush(Colors.Green);
 
-public:
+        internal Brush _completeBrush = new SolidColorBrush(Colors.Red);
 
-    property bool IsAlwaysActivated
-    {
-        bool get() { return _isAlwaysActivated; }
-        void set(bool value) { _isAlwaysActivated = value; }
-    }
+        internal double _dwellStrokeThickness = 2;
 
-internal:
+        internal Interaction _interaction = Interaction.Disabled;
 
-    static property GazePointer Instance { GazePointer get(); }
-    EventRegistrationToken _unloadedToken;
+        internal GazeTargetItem _nonInvokeGazeTargetItem;
 
-    void AddRoot(int proxyId);
-    void RemoveRoot(int proxyId);
+        internal GazeFeedbackPopupFactory _gazeFeedbackPopupFactory = new GazeFeedbackPopupFactory();
+
+        internal void Reset() { throw new ToDoException(); }
+        internal void SetElementStateDelay(UIElement element, PointerState pointerState, TimeSpan stateDelay) { throw new ToDoException(); }
+        internal TimeSpan GetElementStateDelay(UIElement element, DependencyProperty property, TimeSpan defaultValue) { throw new ToDoException(); }
+        internal TimeSpan GetElementStateDelay(UIElement element, PointerState pointerState) { throw new ToDoException(); }
+
+        // Provide a configurable delay for when the EyesOffDelay event is fired
+        // GOTCHA: this value requires that _eyesOffTimer is instantiated so that it
+        // can update the timer interval 
+        internal TimeSpan EyesOffDelay
+        {
+            get { return _eyesOffDelay; }
+            set
+            {
+                _eyesOffDelay = value;
+
+                // convert GAZE_IDLE_TIME units (microseconds) to 100-nanosecond units used
+                // by TimeSpan struct
+                _eyesOffTimer.Interval = EyesOffDelay;
+            }
+        }
+
+        // Pluggable filter for eye tracking sample data. This defaults to being set to the
+        // NullFilter which performs no filtering of input samples.
+        internal IGazeFilter Filter { get; set; }
+
+        internal bool IsCursorVisible
+        {
+            get { return _gazeCursor.IsCursorVisible; }
+            set { _gazeCursor.IsCursorVisible = value; }
+        }
+
+        internal int CursorRadius
+        {
+            get { return _gazeCursor.CursorRadius; }
+            set { _gazeCursor.CursorRadius = value; }
+        }
+
+        internal bool IsSwitchEnabled
+        {
+            get { return _isSwitchEnabled; }
+            set { _isSwitchEnabled = value; }
+        }
+
+        public bool IsAlwaysActivated
+        {
+            get { return _isAlwaysActivated; }
+            set { _isAlwaysActivated = value; }
+        }
+
+        internal static GazePointer Instance { get { throw new ToDoException(); } }
+        internal EventRegistrationToken _unloadedToken;
+
+        internal void AddRoot(int proxyId) { throw new ToDoException(); }
+        internal void RemoveRoot(int proxyId) { throw new ToDoException(); }
 
 
-    property bool IsDeviceAvailable { bool get() { return _devices.Size != 0; }}
-    event EventHandler<Object> IsDeviceAvailableChanged;
+        internal bool IsDeviceAvailable
+        {
+            get { return _devices.Count != 0; }
+        }
+        internal event EventHandler<Object> IsDeviceAvailableChanged;
 
-private:
+        private GazePointer() { throw new ToDoException(); }
 
-    GazePointer();
+        private bool _initialized;
+        private bool _isShuttingDown;
 
-private:
+        private TimeSpan GetDefaultPropertyValue(PointerState state) { throw new ToDoException(); }
 
-    bool _initialized;
-    bool _isShuttingDown;
+        private void InitializeHistogram() { throw new ToDoException(); }
+        private void InitializeGazeInputSource() { throw new ToDoException(); }
+        private void DeinitializeGazeInputSource() { throw new ToDoException(); }
 
-    TimeSpan GetDefaultPropertyValue(PointerState state);
+        private void ActivateGazeTargetItem(GazeTargetItem target) { throw new ToDoException(); }
+        private GazeTargetItem GetHitTarget(Point gazePoint) { throw new ToDoException(); }
+        private GazeTargetItem ResolveHitTarget(Point gazePoint, TimeSpan timestamp) { throw new ToDoException(); }
 
-    void    InitializeHistogram();
-    void    InitializeGazeInputSource();
-    void    DeinitializeGazeInputSource();
+        private void CheckIfExiting(TimeSpan curTimestamp) { throw new ToDoException(); }
+        private void RaiseGazePointerEvent(GazeTargetItem target, PointerState state, TimeSpan elapsedTime) { throw new ToDoException(); }
 
-    void ActivateGazeTargetItem(GazeTargetItem target);
-    GazeTargetItem          GetHitTarget(Point gazePoint);
-    GazeTargetItem          ResolveHitTarget(Point gazePoint, TimeSpan timestamp);
+        private void OnGazeEntered(
+            GazeInputSourcePreview provider,
+            GazeEnteredPreviewEventArgs args)
+        { throw new ToDoException(); }
+        private void OnGazeMoved(
+            GazeInputSourcePreview provider,
+            GazeMovedPreviewEventArgs args)
+        { throw new ToDoException(); }
+        private void OnGazeExited(
+            GazeInputSourcePreview provider,
+            GazeExitedPreviewEventArgs args)
+        { throw new ToDoException(); }
 
-    void    CheckIfExiting(TimeSpan curTimestamp);
-    void    RaiseGazePointerEvent(GazeTargetItem target, PointerState state, TimeSpan elapsedTime);
+        private void ProcessGazePoint(TimeSpan timestamp, Point position) { throw new ToDoException(); }
 
-    void OnGazeEntered(
-        GazeInputSourcePreview provider,
-        GazeEnteredPreviewEventArgs args);
-    void OnGazeMoved(
-        GazeInputSourcePreview provider,
-        GazeMovedPreviewEventArgs args);
-    void OnGazeExited(
-        GazeInputSourcePreview provider,
-        GazeExitedPreviewEventArgs args);
+        private void OnEyesOff(Object sender, Object ea) { throw new ToDoException(); }
 
-    void ProcessGazePoint(TimeSpan timestamp, Point position);
+        private void OnDeviceAdded(GazeDeviceWatcherPreview sender, GazeDeviceWatcherAddedPreviewEventArgs args) { throw new ToDoException(); }
+        private void OnDeviceRemoved(GazeDeviceWatcherPreview sender, GazeDeviceWatcherRemovedPreviewEventArgs args) { throw new ToDoException(); }
 
-    void    OnEyesOff(Object sender, Object ea);
+        private List<int> _roots = new List<int>();
 
-    void OnDeviceAdded(GazeDeviceWatcherPreview sender, GazeDeviceWatcherAddedPreviewEventArgs args);
-    void OnDeviceRemoved(GazeDeviceWatcherPreview sender, GazeDeviceWatcherRemovedPreviewEventArgs args);
+        private TimeSpan _eyesOffDelay;
 
-private:
-    Vector<int> _roots = new Vector<int>();
+        private GazeCursor _gazeCursor;
+        private DispatcherTimer _eyesOffTimer;
 
-    TimeSpan                               _eyesOffDelay;
+        // _offScreenElement is a pseudo-element that represents the area outside
+        // the screen so we can track how long the user has been looking outside
+        // the screen and appropriately trigger the EyesOff event
+        private Control _offScreenElement;
 
-    GazeCursor                         _gazeCursor;
-    DispatcherTimer                    _eyesOffTimer;
+        // The value is the total time that FrameworkElement has been gazed at
+        private List<GazeTargetItem> _activeHitTargetTimes;
 
-    // _offScreenElement is a pseudo-element that represents the area outside
-    // the screen so we can track how long the user has been looking outside
-    // the screen and appropriately trigger the EyesOff event
-    Control                            _offScreenElement;
+        // A vector to track the history of observed gaze targets
+        private List<GazeHistoryItem> _gazeHistory;
+        private TimeSpan _maxHistoryTime;
 
-    // The value is the total time that FrameworkElement has been gazed at
-    Vector<GazeTargetItem>            _activeHitTargetTimes;
+        // Used to determine if exit events need to be fired by adding GAZE_IDLE_TIME to the last 
+        // saved timestamp
+        private TimeSpan _lastTimestamp;
 
-    // A vector to track the history of observed gaze targets
-    Vector<GazeHistoryItem>           _gazeHistory;
-    TimeSpan                               _maxHistoryTime;
+        private GazeInputSourcePreview _gazeInputSource;
+        private EventRegistrationToken _gazeEnteredToken;
+        private EventRegistrationToken _gazeMovedToken;
+        private EventRegistrationToken _gazeExitedToken;
 
-    // Used to determine if exit events need to be fired by adding GAZE_IDLE_TIME to the last 
-    // saved timestamp
-    TimeSpan                           _lastTimestamp;
+        private GazeDeviceWatcherPreview _watcher;
+        private List<GazeDevicePreview> _devices;
+        private EventRegistrationToken _deviceAddedToken;
+        private EventRegistrationToken _deviceRemovedToken;
 
-    GazeInputSourcePreview             _gazeInputSource;
-    EventRegistrationToken              _gazeEnteredToken;
-    EventRegistrationToken              _gazeMovedToken;
-    EventRegistrationToken              _gazeExitedToken;
+        private TimeSpan _defaultFixation = DEFAULT_FIXATION_DELAY;
+        private TimeSpan _defaultDwell = DEFAULT_DWELL_DELAY;
+        private TimeSpan _defaultDwellRepeatDelay = DEFAULT_DWELL_REPEAT_DELAY;
+        private TimeSpan _defaultRepeatDelay = DEFAULT_REPEAT_DELAY;
+        private TimeSpan _defaultThreshold = DEFAULT_THRESHOLD_DELAY;
 
-    GazeDeviceWatcherPreview _watcher;
-    Vector<GazeDevicePreview> _devices;
-    EventRegistrationToken _deviceAddedToken;
-    EventRegistrationToken _deviceRemovedToken;
-
-    TimeSpan _defaultFixation = DEFAULT_FIXATION_DELAY;
-    TimeSpan _defaultDwell = DEFAULT_DWELL_DELAY;
-    TimeSpan _defaultDwellRepeatDelay = DEFAULT_DWELL_REPEAT_DELAY;
-    TimeSpan _defaultRepeatDelay = DEFAULT_REPEAT_DELAY;
-    TimeSpan _defaultThreshold = DEFAULT_THRESHOLD_DELAY;
-
-    bool                                _isAlwaysActivated;
-    bool                                _isSwitchEnabled;
-    GazeTargetItem                     _currentlyFixatedElement;
-*/
+        private bool _isAlwaysActivated;
+        private bool _isSwitchEnabled;
+        private GazeTargetItem _currentlyFixatedElement;
     }
 }
