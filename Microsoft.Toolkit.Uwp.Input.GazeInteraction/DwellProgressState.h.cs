@@ -1,32 +1,32 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
-
-/// <summary>
-/// An enum that reflects the current state of progress towards dwell when a user is focused on a control
-/// </summary>
-public enum class DwellProgressState
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-    /// <summary>
-    /// User is not looking at the control
-    /// </summary>
-    Idle,
 
     /// <summary>
-    /// Gaze has entered control but we're not yet showing progress.
+    /// An enum that reflects the current state of progress towards dwell when a user is focused on a control
     /// </summary>
-    Fixating,
+    public enum DwellProgressState
+    {
+        /// <summary>
+        /// User is not looking at the control
+        /// </summary>
+        Idle,
 
-    /// <summary>
-    /// User is continuing to focus on a control with an intent to dwell and invoke
-    /// </summary>
-    Progressing,
+        /// <summary>
+        /// Gaze has entered control but we're not yet showing progress.
+        /// </summary>
+        Fixating,
 
-    /// <summary>
-    /// User has completed dwelling on a control
-    /// </summary>
-    Complete
-};
+        /// <summary>
+        /// User is continuing to focus on a control with an intent to dwell and invoke
+        /// </summary>
+        Progressing,
 
-*/ }
+        /// <summary>
+        /// User has completed dwelling on a control
+        /// </summary>
+        Complete
+    }
+}
