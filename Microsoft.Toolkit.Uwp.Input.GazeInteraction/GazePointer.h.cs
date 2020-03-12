@@ -18,7 +18,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
     /// <summary>
     /// Class of singleton object coordinating gaze input.
     /// </summary>
-    public sealed class GazePointer
+    public sealed partial class GazePointer
     {
         // units in microseconds
         private static TimeSpan DEFAULT_FIXATION_DELAY = TimeSpan.FromMilliseconds(350);
@@ -30,30 +30,6 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         private static TimeSpan MAX_SINGLE_SAMPLE_DURATION = TimeSpan.FromMilliseconds(100);
 
         private static TimeSpan GAZE_IDLE_TIME = TimeSpan.FromSeconds(2.5);
-
-        ~GazePointer() { throw new ToDoException(); }
-
-        /// <summary>
-        /// Loads a settings collection into GazePointer.
-        /// </summary>
-        public void LoadSettings(ValueSet settings) { throw new ToDoException(); }
-
-        /// <summary>
-        /// When in switch mode, will issue a click on the currently fixated element
-        /// </summary>
-        public void Click() { throw new ToDoException(); }
-
-        /// <summary>
-        /// Run device calibration.
-        /// </summary>
-        public IAsyncOperation<bool> RequestCalibrationAsync() { throw new ToDoException(); }
-
-        public event EventHandler<GazeEventArgs> GazeEvent
-        {
-            add { throw new ToDoException(); }
-            remove { throw new ToDoException(); }
-            //raise(Object sender, GazeEventArgs e);
-        }
 
         /// <summary>
         /// The UIElement representing the cursor.
@@ -81,11 +57,6 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         internal GazeTargetItem _nonInvokeGazeTargetItem;
 
         internal GazeFeedbackPopupFactory _gazeFeedbackPopupFactory = new GazeFeedbackPopupFactory();
-
-        internal void Reset() { throw new ToDoException(); }
-        internal void SetElementStateDelay(UIElement element, PointerState pointerState, TimeSpan stateDelay) { throw new ToDoException(); }
-        internal TimeSpan GetElementStateDelay(UIElement element, DependencyProperty property, TimeSpan defaultValue) { throw new ToDoException(); }
-        internal TimeSpan GetElementStateDelay(UIElement element, PointerState pointerState) { throw new ToDoException(); }
 
         // Provide a configurable delay for when the EyesOffDelay event is fired
         // GOTCHA: this value requires that _eyesOffTimer is instantiated so that it
@@ -131,12 +102,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
             set { _isAlwaysActivated = value; }
         }
 
-        internal static GazePointer Instance { get { throw new ToDoException(); } }
         internal EventRegistrationToken _unloadedToken;
-
-        internal void AddRoot(int proxyId) { throw new ToDoException(); }
-        internal void RemoveRoot(int proxyId) { throw new ToDoException(); }
-
 
         internal bool IsDeviceAvailable
         {
@@ -144,43 +110,8 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         }
         internal event EventHandler<Object> IsDeviceAvailableChanged;
 
-        private GazePointer() { throw new ToDoException(); }
-
         private bool _initialized;
         private bool _isShuttingDown;
-
-        private TimeSpan GetDefaultPropertyValue(PointerState state) { throw new ToDoException(); }
-
-        private void InitializeHistogram() { throw new ToDoException(); }
-        private void InitializeGazeInputSource() { throw new ToDoException(); }
-        private void DeinitializeGazeInputSource() { throw new ToDoException(); }
-
-        private void ActivateGazeTargetItem(GazeTargetItem target) { throw new ToDoException(); }
-        private GazeTargetItem GetHitTarget(Point gazePoint) { throw new ToDoException(); }
-        private GazeTargetItem ResolveHitTarget(Point gazePoint, TimeSpan timestamp) { throw new ToDoException(); }
-
-        private void CheckIfExiting(TimeSpan curTimestamp) { throw new ToDoException(); }
-        private void RaiseGazePointerEvent(GazeTargetItem target, PointerState state, TimeSpan elapsedTime) { throw new ToDoException(); }
-
-        private void OnGazeEntered(
-            GazeInputSourcePreview provider,
-            GazeEnteredPreviewEventArgs args)
-        { throw new ToDoException(); }
-        private void OnGazeMoved(
-            GazeInputSourcePreview provider,
-            GazeMovedPreviewEventArgs args)
-        { throw new ToDoException(); }
-        private void OnGazeExited(
-            GazeInputSourcePreview provider,
-            GazeExitedPreviewEventArgs args)
-        { throw new ToDoException(); }
-
-        private void ProcessGazePoint(TimeSpan timestamp, Point position) { throw new ToDoException(); }
-
-        private void OnEyesOff(Object sender, Object ea) { throw new ToDoException(); }
-
-        private void OnDeviceAdded(GazeDeviceWatcherPreview sender, GazeDeviceWatcherAddedPreviewEventArgs args) { throw new ToDoException(); }
-        private void OnDeviceRemoved(GazeDeviceWatcherPreview sender, GazeDeviceWatcherRemovedPreviewEventArgs args) { throw new ToDoException(); }
 
         private List<int> _roots = new List<int>();
 
@@ -206,14 +137,9 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         private TimeSpan _lastTimestamp;
 
         private GazeInputSourcePreview _gazeInputSource;
-        private EventRegistrationToken _gazeEnteredToken;
-        private EventRegistrationToken _gazeMovedToken;
-        private EventRegistrationToken _gazeExitedToken;
 
         private GazeDeviceWatcherPreview _watcher;
         private List<GazeDevicePreview> _devices;
-        private EventRegistrationToken _deviceAddedToken;
-        private EventRegistrationToken _deviceRemovedToken;
 
         private TimeSpan _defaultFixation = DEFAULT_FIXATION_DELAY;
         private TimeSpan _defaultDwell = DEFAULT_DWELL_DELAY;

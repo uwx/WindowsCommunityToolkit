@@ -6,7 +6,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
 GazeStats.GazeStats(int maxHistoryLen)
 {
     _maxHistoryLen = maxHistoryLen;
-    _history = new Vector<Point>();
+    _history = new List<Point>();
 }
 
 void GazeStats.Reset()
