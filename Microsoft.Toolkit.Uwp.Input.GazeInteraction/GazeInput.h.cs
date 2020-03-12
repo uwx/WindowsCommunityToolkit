@@ -2,6 +2,7 @@
 //See LICENSE in the project root for license information.
 
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
@@ -254,9 +255,21 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         /// </summary>
         public static event EventHandler<Object> IsDeviceAvailableChanged
         {
-            add { return GazePointer.Instance.IsDeviceAvailableChanged += value; }
-            remove { GazePointer.Instance.IsDeviceAvailableChanged -= value; }
+            add
+            {
+                return EventRegistrationTokenTable<EventHandler<Object>>.
+                    GetOrCreateEventRegistrationTokenTable(ref m_IsDeviceAvailableChangedTokenTable).
+                    AddEventHandler(value);
+            }
+            remove
+            {
+                EventRegistrationTokenTable<EventHandler<Object>>.
+                    GetOrCreateEventRegistrationTokenTable(ref m_IsDeviceAvailableChangedTokenTable).
+                    RemoveEventHandler(value);
+            }
         }
+        private static EventRegistrationTokenTable<EventHandler<Object>>
+            m_IsDeviceAvailableChangedTokenTable = null;
 
         /// <summary>
         /// Loads a settings collection into GazeInput.
