@@ -7,12 +7,8 @@ using Windows.UI.Xaml.Controls.Primitives;
 namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
 
-    internal class GazeFeedbackPopupFactory
+    internal partial class GazeFeedbackPopupFactory
     {
         private List<Popup> s_cache = new List<Popup>();
-
-        public Popup Get() { throw new ToDoException(); }
-
-        public void Return(Popup popup) { throw new ToDoException(); }
     }
 }
