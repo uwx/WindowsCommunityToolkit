@@ -40,7 +40,6 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
             set { _gazeCursor.PopupChild = value; }
         }
 
-        private event EventHandler<GazeEventArgs> _gazeEvent;
         private readonly GazeEventArgs _gazeEventArgs = new GazeEventArgs();
         private int _gazeEventCount = 0;
 
@@ -101,8 +100,6 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
             get { return _isAlwaysActivated; }
             set { _isAlwaysActivated = value; }
         }
-
-        internal EventRegistrationToken _unloadedToken;
 
         internal bool IsDeviceAvailable
         {

@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-    internal abstract class GazeTargetItem
+    internal abstract partial class GazeTargetItem
     {
         internal TimeSpan DetailedTime { get; set; }
         internal TimeSpan OverflowTime { get; set; }
@@ -27,8 +27,6 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         {
             TargetElement = target;
         }
-
-        internal static GazeTargetItem GetOrCreate(UIElement element) { throw new ToDoException(); }
 
         internal abstract void Invoke();
 
@@ -88,8 +86,6 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
                 }
             }
         }
-
-        private void RaiseProgressEvent(DwellProgressState state) { throw new ToDoException(); }
 
         private PointerState _notifiedPointerState = PointerState.Exit;
         private TimeSpan _prevStateTime;

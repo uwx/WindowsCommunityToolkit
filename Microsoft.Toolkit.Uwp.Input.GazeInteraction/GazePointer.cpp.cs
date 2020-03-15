@@ -471,7 +471,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
             var index = _activeHitTargetTimes.IndexOf(target);
             if (index == -1)
             {
-                _activeHitTargetTimes.Append(target);
+                _activeHitTargetTimes.Add(target);
 
                 // calculate the time that the first DwellRepeat needs to be fired after. this will be updated every time a DwellRepeat is 
                 // fired to keep track of when the next one is to be fired after that.
@@ -507,7 +507,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
             {
                 historyItem.Duration = MAX_SINGLE_SAMPLE_DURATION;
             }
-            _gazeHistory.Append(historyItem);
+            _gazeHistory.Add(historyItem);
 
             // update the time this particular hit target has accumulated
             target.DetailedTime += historyItem.Duration;

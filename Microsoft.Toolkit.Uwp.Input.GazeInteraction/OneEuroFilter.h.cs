@@ -31,22 +31,15 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
         }
     };
 
-    internal sealed class OneEuroFilter : IGazeFilter
+    internal sealed partial class OneEuroFilter : IGazeFilter
     {
         internal const float ONEEUROFILTER_DEFAULT_BETA = 5.0f;
         internal const float ONEEUROFILTER_DEFAULT_CUTOFF = 0.1f;
         internal const float ONEEUROFILTER_DEFAULT_VELOCITY_CUTOFF = 1.0f;
 
-        public OneEuroFilter() { throw new ToDoException(); }
-        public OneEuroFilter(float cutoff, float beta) { throw new ToDoException(); }
-        public GazeFilterArgs Update(GazeFilterArgs args) { throw new ToDoException(); }
-        public void LoadSettings(ValueSet settings) { throw new ToDoException(); }
-
         public float Beta;
         public float Cutoff;
         public float VelocityCutoff;
-
-        private float Alpha(float rate, float cutoff) { throw new ToDoException(); }
 
         private TimeSpan _lastTimestamp;
         private LowpassFilter _pointFilter;

@@ -7,13 +7,8 @@ using Windows.Foundation;
 
 namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-
-    public sealed class GazeStats
+    public sealed partial class GazeStats
     {
-        public GazeStats(int maxHistoryLen) { throw new ToDoException(); }
-        public void Reset() { throw new ToDoException(); }
-        public void Update(float x, float y) { throw new ToDoException(); }
-
         public Point Mean
         {
             get
@@ -35,15 +30,15 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
                 {
                     return new Point(0.0f, 0.0f);
                 }
-                double meanX = _sumX / count;
-                double meanY = _sumY / count;
-                float stddevX = (float)Math.Sqrt((_sumSquaredX / count) - (meanX * meanX));
-                float stddevY = (float)Math.Sqrt((_sumSquaredY / count) - (meanY * meanY));
+                var meanX = _sumX / count;
+                var meanY = _sumY / count;
+                var stddevX = Math.Sqrt((_sumSquaredX / count) - (meanX * meanX));
+                var stddevY = Math.Sqrt((_sumSquaredY / count) - (meanY * meanY));
                 return new Point(stddevX, stddevY);
             }
         }
 
-        private uint _maxHistoryLen;
+        private int _maxHistoryLen;
         private double _sumX;
         private double _sumY;
         private double _sumSquaredX;

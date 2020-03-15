@@ -1,42 +1,48 @@
 //Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction { /*
+using System.Collections.Generic;
+using Windows.Foundation;
 
-GazeStats.GazeStats(int maxHistoryLen)
+namespace Microsoft.Toolkit.Uwp.Input.GazeInteraction
 {
-    _maxHistoryLen = maxHistoryLen;
-    _history = new List<Point>();
-}
-
-void GazeStats.Reset()
-{
-    _sumX = 0;
-    _sumY = 0;
-    _sumSquaredX = 0;
-    _sumSquaredY = 0;
-    _history.Clear();
-}
-
-void GazeStats.Update(float x, float y)
-{
-    Point pt(x, y);
-    _history.Append(pt);
-
-    if (_history.Size > _maxHistoryLen)
+    public sealed partial class GazeStats
     {
-        var oldest = _history.GetAt(0);
-        _history.RemoveAt(0);
-            
-        _sumX -= oldest.X;
-        _sumY -= oldest.Y;
-        _sumSquaredX -= oldest.X * oldest.X;
-        _sumSquaredY -= oldest.Y * oldest.Y;
-    }
-    _sumX += x;
-    _sumY += y;
-    _sumSquaredX += x * x;
-    _sumSquaredY += y * y;
-}
 
-*/ }
+        public GazeStats(int maxHistoryLen)
+        {
+            _maxHistoryLen = maxHistoryLen;
+            _history = new List<Point>();
+        }
+
+        public void Reset()
+        {
+            _sumX = 0;
+            _sumY = 0;
+            _sumSquaredX = 0;
+            _sumSquaredY = 0;
+            _history.Clear();
+        }
+
+        public void Update(float x, float y)
+        {
+            var pt = new Point(x, y);
+            _history.Add(pt);
+
+            if (_history.Count > _maxHistoryLen)
+            {
+                var oldest = _history[0];
+                _history.RemoveAt(0);
+
+                _sumX -= oldest.X;
+                _sumY -= oldest.Y;
+                _sumSquaredX -= oldest.X * oldest.X;
+                _sumSquaredY -= oldest.Y * oldest.Y;
+            }
+            _sumX += x;
+            _sumY += y;
+            _sumSquaredX += x * x;
+            _sumSquaredY += y * y;
+        }
+    }
+}
