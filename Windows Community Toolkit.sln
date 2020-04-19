@@ -90,6 +90,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GazeInputTest", "GazeInputT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Toolkit.Uwp.UI.Media", "Microsoft.Toolkit.Uwp.UI.Media\Microsoft.Toolkit.Uwp.UI.Media.csproj", "{75F9EE44-3EFA-47BC-AEDD-351B9834A0AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Toolkit.Uwp.Input.GazeControls", "Microsoft.Toolkit.Uwp.Input.GazeControls\Microsoft.Toolkit.Uwp.Input.GazeControls.csproj", "{9A63D36F-99EB-484F-A0AC-161C98349734}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UnitTests\UnitTests.Notifications.Shared\UnitTests.Notifications.Shared.projitems*{982cc826-aacd-4855-9075-430bb6ce40a9}*SharedItemsImports = 13
@@ -804,6 +806,28 @@ Global
 		{75F9EE44-3EFA-47BC-AEDD-351B9834A0AF}.Release|x64.Build.0 = Release|Any CPU
 		{75F9EE44-3EFA-47BC-AEDD-351B9834A0AF}.Release|x86.ActiveCfg = Release|Any CPU
 		{75F9EE44-3EFA-47BC-AEDD-351B9834A0AF}.Release|x86.Build.0 = Release|Any CPU
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Debug|ARM.ActiveCfg = Debug|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Debug|ARM64.ActiveCfg = Debug|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Debug|x64.ActiveCfg = Debug|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Debug|x64.Build.0 = Debug|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Debug|x86.ActiveCfg = Debug|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Native|Any CPU.ActiveCfg = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Native|Any CPU.Build.0 = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Native|ARM.ActiveCfg = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Native|ARM.Build.0 = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Native|ARM64.ActiveCfg = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Native|ARM64.Build.0 = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Native|x64.ActiveCfg = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Native|x64.Build.0 = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Native|x86.ActiveCfg = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Native|x86.Build.0 = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Release|Any CPU.ActiveCfg = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Release|ARM.ActiveCfg = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Release|ARM64.ActiveCfg = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Release|x64.ActiveCfg = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Release|x64.Build.0 = Release|x64
+		{9A63D36F-99EB-484F-A0AC-161C98349734}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

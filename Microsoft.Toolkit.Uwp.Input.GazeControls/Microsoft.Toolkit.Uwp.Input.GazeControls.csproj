@@ -1,0 +1,40 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFramework>uap10.0.17134</TargetFramework>
+    <Title>Windows Community Toolkit Gaze Controls</Title>
+    <Description>
+      This library provides XAML templated controls optimized for gaze input. It is part of the Windows Community Toolkit.
+      
+      Controls:
+        - GazeFilePicker: File open and save dialogs to be used with eye gaze
+    </Description>
+    <PackageTags>UWP Toolkit Windows Controls GazeFilePicker</PackageTags>
+    <Platforms>x64</Platforms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Toolkit.Uwp.Input.GazeInteraction\Microsoft.Toolkit.Uwp.Input.GazeInteraction.vcxproj">
+      <Project>{a5e98964-45b1-442d-a07a-298a3221d81e}</Project>
+      <Name>Microsoft.Toolkit.Uwp.Input.GazeInteraction</Name>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GazeFilePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+   
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
+  <!-- https://weblogs.asp.net/rweigelt/disable-warnings-in-generated-c-files-of-uwp-app -->
+  <Target Name="PragmaWarningDisablePrefixer" AfterTargets="MarkupCompilePass2">
+    <ItemGroup>
+      <GeneratedCSFiles Include="**\*.g.cs;**\*.g.i.cs" />
+    </ItemGroup>
+    <Message Text="CSFiles: @(GeneratedCSFiles->'&quot;%(Identity)&quot;')" />
+    <Exec Command="for %%f in (@(GeneratedCSFiles->'&quot;%(Identity)&quot;')) do echo #pragma warning disable &gt; %%f.temp &amp;&amp; type %%f &gt;&gt; %%f.temp &amp;&amp; move /y %%f.temp %%f &gt; NUL" />
+  </Target>
+</Project>

@@ -3,8 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Diagnostics;
+using Microsoft.Toolkit.Uwp.Input.GazeControls;
 using Microsoft.Toolkit.Uwp.Input.GazeInteraction;
 using Windows.ApplicationModel.Core;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -99,13 +102,11 @@ namespace GazeInputTest
 
         private async void DialogClicked(object sender, RoutedEventArgs e)
         {
-            var dialog = new ContentDialog
-            {
-                Title = "Sample Dialog",
-                Content = "This is an example content dialog",
-                CloseButtonText = "Close"
-            };
-            await dialog.ShowAsync();
+            var picker = new GazeFilePicker();
+            var library = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Documents);
+            picker.CurrentFolder = library.SaveFolder;
+            await picker.ShowAsync();
+            Debug.WriteLine($"{picker.SelectedItem.Path}");
         }
     }
 }

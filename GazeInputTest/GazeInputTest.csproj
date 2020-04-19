@@ -86,7 +86,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-	<UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -157,6 +157,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Toolkit.Uwp.Input.GazeControls\Microsoft.Toolkit.Uwp.Input.GazeControls.csproj">
+      <Project>{9a63d36f-99eb-484f-a0ac-161c98349734}</Project>
+      <Name>Microsoft.Toolkit.Uwp.Input.GazeControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Microsoft.Toolkit.UWP.Input.GazeInteraction\Microsoft.Toolkit.Uwp.Input.GazeInteraction.vcxproj">
       <Project>{a5e98964-45b1-442d-a07a-298a3221d81e}</Project>
       <Name>Microsoft.Toolkit.Uwp.Input.GazeInteraction</Name>
