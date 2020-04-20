@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>uap10.0.17134</TargetFramework>
+    <TargetFramework>uap10.0.18362</TargetFramework>
     <Title>Windows Community Toolkit Gaze Controls</Title>
     <Description>
       This library provides XAML templated controls optimized for gaze input. It is part of the Windows Community Toolkit.
@@ -15,10 +15,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Remove="KeyboardLayouts\FullKeyboard.xaml" />
+    <Page Remove="KeyboardLayouts\MinAAC.xaml" />
+    <Page Remove="KeyboardLayouts\TwoStageKeyboard.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="KeyboardLayouts\FullKeyboard.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="KeyboardLayouts\MinAAC.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="KeyboardLayouts\TwoStageKeyboard.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Microsoft.Toolkit.Uwp.Input.GazeInteraction\Microsoft.Toolkit.Uwp.Input.GazeInteraction.vcxproj">
       <Project>{a5e98964-45b1-442d-a07a-298a3221d81e}</Project>
       <Name>Microsoft.Toolkit.Uwp.Input.GazeInteraction</Name>
     </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="GazeKeyboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

@@ -106,7 +106,10 @@ namespace GazeInputTest
             var library = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Documents);
             picker.CurrentFolder = library.SaveFolder;
             await picker.ShowAsync();
-            Debug.WriteLine($"{picker.SelectedItem.Path}");
+            if (picker.SelectedItem != null)
+            {
+                Debug.WriteLine($"{picker.SelectedItem.Path}");
+            }
         }
     }
 }
