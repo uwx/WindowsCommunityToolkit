@@ -100,16 +100,27 @@ namespace GazeInputTest
             bool viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
         }
 
-        private async void DialogClicked(object sender, RoutedEventArgs e)
+        private async void ShowFilePicker(bool saveMode)
         {
             var picker = new GazeFilePicker();
             var library = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Documents);
             picker.CurrentFolder = library.SaveFolder;
+            picker.SaveMode = saveMode;
             await picker.ShowAsync();
             if (picker.SelectedItem != null)
             {
                 Debug.WriteLine($"{picker.SelectedItem.Path}");
             }
+        }
+
+        private void FileOpenClicked(object sender, RoutedEventArgs e)
+        {
+            ShowFilePicker(false);
+        }
+
+        private void FileSaveClicked(object sender, RoutedEventArgs e)
+        {
+            ShowFilePicker(true);
         }
     }
 }

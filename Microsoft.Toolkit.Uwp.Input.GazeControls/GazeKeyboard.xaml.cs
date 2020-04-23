@@ -153,6 +153,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
             {
                 return false;
             }
+
             var key = new InjectedInputKeyboardInfo();
             key.VirtualKey = (ushort)vk;
             _injector.InjectKeyboardInput(new[] { key });
@@ -178,8 +179,10 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
                 {
                     state.Add(vk, true);
                 }
+
                 keys.Add(key);
             }
+
             _injector.InjectKeyboardInput(keys);
 
             UpdatePredictions();
@@ -209,6 +212,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
             {
                 return kbdPage;
             }
+
             KeyboardPage containerPage = null;
             for (int i = 0; i < kbdPage.Children.Count; i++)
             {
@@ -245,6 +249,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
                     {
                         container.PrevChild = container.CurrentChild;
                     }
+
                     container.CurrentChild = container.Children[i];
                 }
             }
@@ -345,8 +350,10 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
                     ScanCode = ch,
                     KeyOptions = InjectedInputKeyOptions.Unicode | InjectedInputKeyOptions.KeyUp
                 };
+
                 keys.Add(key);
             }
+
             _injector.InjectKeyboardInput(keys);
         }
 
@@ -393,6 +400,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
                 words.Add(segment.Text);
                 i++;
             }
+
             words.Reverse();
             return words;
         }
@@ -423,7 +431,9 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
 
             IReadOnlyList<string> predictions;
             var prevWordsExceptLast = prevWords.GetRange(1, prevWords.Count - 1);
-            // It looks like we need to send in a larger number than necessary to get good quality predictions. 
+
+            // It looks like we need to send in a larger number than necessary to get good quality predictions.
+
             uint maxCandidates = (uint)PredictionTargets.Length * 2;
             predictions = await _textPredictionGenerator.GetCandidatesAsync(
                             prevWords[0],

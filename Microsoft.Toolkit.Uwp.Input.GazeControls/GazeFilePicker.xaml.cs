@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Toolkit.Uwp.Input.GazeInteraction;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,20 +37,22 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
         private Button _cancelButton;
         private DispatcherTimer _initializationTimer;
 
+        private bool _newFolderMode;
+
         private PathPart[] _currentFolderParts;
         private ObservableCollection<StorageItem> _currentFolderItems;
 
         private StorageItem _curSelectedItem;
 
-        private StorageItem _selectedItem;
+        private StorageFile _selectedItem;
 
         public bool SaveMode = false;
 
-        public IStorageItem SelectedItem
+        public StorageFile SelectedItem
         {
             get
             {
-                return _selectedItem != null ? _selectedItem.Item : null;
+                return _selectedItem;
             }
         }
 
@@ -162,11 +165,22 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
             SetFileListingsLayout();
         }
 
-        private void OnSelectButtonClick(object sender, RoutedEventArgs e)
+        private async void OnSelectButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!SaveMode)
+            if (_newFolderMode)
             {
-                _selectedItem = _curSelectedItem;
+                _newFolderMode = false;
+                await _currentFolder.CreateFolderAsync(FilenameTextbox.Text);
+                RefreshContents(_currentFolder.Path);
+                SetFileListingsLayout();
+            }
+            else if (SaveMode)
+            {
+                _selectedItem = await _currentFolder.CreateFileAsync(FilenameTextbox.Text);
+            }
+            else
+            {
+                _selectedItem = _curSelectedItem.Item as StorageFile;
             }
         }
 
@@ -201,6 +215,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
 
         private async void OnNewFolderClick(object sender, RoutedEventArgs e)
         {
+            _newFolderMode = true;
             SetKeyboardInputLayout();
             await GazeKeyboard.LoadLayout("FilenameEntry.xaml");
         }
@@ -208,6 +223,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
         private void OnGazeFilePickerOpened(ContentDialog sender, ContentDialogOpenedEventArgs args)
         {
             _initializationTimer.Start();
+            GazeInput.SetMaxDwellRepeatCount(this, 2);
         }
 
         private Task[] GetThumbnailsAsync(ObservableCollection<StorageItem> storageItems)
@@ -226,7 +242,6 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
             _currentFolder = await StorageFolder.GetFolderFromPathAsync(path);
             var items = await _currentFolder.GetItemsAsync();
             _currentFolderItems = new ObservableCollection<StorageItem>(items.Select(item => new StorageItem(item)));
-            OnPropertyChanged("_currentFolderItems");
 
             var tasks = GetThumbnailsAsync(_currentFolderItems);
             await Task.WhenAll(tasks);
@@ -239,6 +254,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
             _currentFolderParts = parts.Select((part, index) => new PathPart { Index = index, Name = part }).ToArray();
 
             OnPropertyChanged("_currentFolderParts");
+            OnPropertyChanged("_currentFolderItems");
         }
 
         private void OnCurrentFolderContentsItemClick(object sender, ItemClickEventArgs e)
@@ -246,7 +262,8 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
             var clickedItem = e.ClickedItem as StorageItem;
             var selectedItem = CurrentFolderContents.SelectedItem as StorageItem;
 
-            if ((clickedItem == selectedItem) && clickedItem.IsFolder)
+            //if ((clickedItem == selectedItem) && clickedItem.IsFolder)
+            if (clickedItem.IsFolder)
             {
                 RefreshContents(clickedItem.Path);
             }
@@ -260,11 +277,11 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
         {
             var buttonIndex = int.Parse((sender as Button).Tag.ToString());
             int selectedIndex = CurrentFolderPartsList.SelectedIndex;
-            if (buttonIndex != selectedIndex)
-            {
-                CurrentFolderPartsList.SelectedIndex = buttonIndex;
-                return;
-            }
+            //if (buttonIndex != selectedIndex)
+            //{
+            //    CurrentFolderPartsList.SelectedIndex = buttonIndex;
+            //    return;
+            //}
 
             var newFolder = Path.Combine(_currentFolderParts.Select(part => part.Name).Take(buttonIndex + 1).ToArray());
             RefreshContents(newFolder);
@@ -272,7 +289,8 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
 
         private void OnFilePickerClosing(ContentDialog sender, ContentDialogClosingEventArgs args)
         {
-            if ((args.Result == ContentDialogResult.None) && (FileListingGrid.Visibility == Visibility.Collapsed))
+            if ((FileListingGrid.Visibility == Visibility.Collapsed) &&
+                (args.Result == ContentDialogResult.None || _newFolderMode))
             {
                 args.Cancel = true;
                 return;

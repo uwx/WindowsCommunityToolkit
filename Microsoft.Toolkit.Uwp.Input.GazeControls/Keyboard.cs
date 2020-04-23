@@ -68,6 +68,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
                 list = new List<int>();
                 SetVKList(obj, list);
             }
+
             return list;
         }
 
@@ -88,6 +89,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
                 list = new List<string>();
                 SetPageList(obj, list);
             }
+
             return list;
         }
 
@@ -95,7 +97,6 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
         {
             obj.SetValue(PageListProperty, value);
         }
-
 
         public static readonly DependencyProperty PageContainerProperty =
             DependencyProperty.RegisterAttached("PageContainer", typeof(string), typeof(Keyboard), new PropertyMetadata(0));

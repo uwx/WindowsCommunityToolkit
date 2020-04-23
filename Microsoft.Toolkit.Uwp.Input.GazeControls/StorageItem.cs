@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -40,7 +41,7 @@ namespace Microsoft.Toolkit.Uwp.Input.GazeControls
             }
         }
 
-        public string Name 
+        public string Name
         {
             get
             {
