@@ -127,6 +127,7 @@ namespace Microsoft.Toolkit.Uwp.SampleApp
             {
                 if (s is UIElement samplePicker && samplePicker.Visibility == Visibility.Visible)
                 {
+                    // TODO: This is stealing focus from the search box!
                     DispatcherHelper.ExecuteOnUIThreadAsync(() => SamplePickerGridView.Focus(FocusState.Keyboard));
                 }
             });
